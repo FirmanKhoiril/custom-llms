@@ -4,15 +4,20 @@ import { useContextState } from "../context/ContextProvider";
 
 const Navbar = () => {
   const { dark, setDark } = useContextState();
+
   return (
-    <nav className="w-full p-3 flex justify-around items-center">
+    <nav className="w-full p-3 flex justify-between sm:mx-0 sm:justify-around items-center">
       <div className="">
-        <h1 className="font-bold">Sales Copilot</h1>
+        <h1 className="font-bold text-3xl tracking-tighter">Sales Copilot</h1>
       </div>
       <div className="">
-        <button type="button" name="toogleDarkMode" onClick={() => setDark(!dark)} className="border flex hover:bg-white/10 sm:min-w-[80px] items-center gap-2 text-sm border-zinc-600 hover:border-zinc-400 sm:rounded-lg rounded-full p-2">
+        <button
+          type="button"
+          name="toogleDarkMode"
+          onClick={() => setDark(!dark)}
+          className="border dark:hover:bg-white/10 text-sm dark:border-zinc-600 dark:hover:border-zinc-400 rounded-lg  p-2.5 border-black/40 hover:border-black/20 hover:bg-black/10"
+        >
           {dark ? <BsFillSunFill size={20} /> : <MdDarkMode size={20} />}
-          <p className="sm:block hidden">{dark ? "Light" : "Dark"}</p>
         </button>
       </div>
     </nav>
