@@ -1,15 +1,15 @@
 import { MdDarkMode } from "react-icons/md";
 import { BsFillSunFill } from "react-icons/bs";
 import { useContextState } from "../context/ContextProvider";
-
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const { dark, setDark } = useContextState();
 
   return (
     <nav className="w-full p-3 flex justify-between sm:mx-0 sm:justify-around items-center">
-      <div className="">
+      <Link to={"/"}>
         <h1 className="font-bold text-3xl tracking-tighter">Sales Copilot</h1>
-      </div>
+      </Link>
       <div className="">
         <button
           type="button"

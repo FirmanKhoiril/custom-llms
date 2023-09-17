@@ -1,5 +1,12 @@
+import { Form } from "../components";
+
 const Home = () => {
-  return <section>LearnSync</section>;
+  return (
+    <section>
+      LearnSync
+      <Form />
+    </section>
+  );
 };
 
 export default Home;
