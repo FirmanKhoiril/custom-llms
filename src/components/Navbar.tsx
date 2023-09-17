@@ -10,10 +10,11 @@ const Navbar = () => {
       <Link to={"/"}>
         <h1 className="font-bold text-3xl tracking-tighter">Sales Copilot</h1>
       </Link>
-      <div className="">
+      <div>
         <button
           type="button"
           name="toogleDarkMode"
+          aria-label="toogleDarkMode"
           onClick={() => setDark(!dark)}
           className="border dark:hover:bg-white/10 text-sm dark:border-zinc-600 dark:hover:border-zinc-400 rounded-lg  p-2.5 border-black/40 hover:border-black/20 hover:bg-black/10"
         >
