@@ -1,11 +1,11 @@
+import { Container } from "@mui/material";
 import { Form } from "../components";
 
 const Home = () => {
   return (
-    <section>
-      LearnSync
+    <Container>
       <Form />
-    </section>
+    </Container>
   );
 };
 

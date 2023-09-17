@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import { Footer, Navbar } from "./components";
+import { Navbar } from "./components";
 import { useContextState } from "./context/ContextProvider";
 import Home from "./pages/Home";
 
@@ -13,7 +13,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>
-        <Footer />
       </main>
     </div>
   );
