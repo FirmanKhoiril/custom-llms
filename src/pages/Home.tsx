@@ -1,9 +1,10 @@
 import { Container } from "@mui/material";
-import { Form } from "../components";
+import { Conversation, Form } from "../components";
 
 const Home = () => {
   return (
-    <Container>
+    <Container sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 1 }}>
+      <Conversation />
       <Form />
     </Container>
   );
