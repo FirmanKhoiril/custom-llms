@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <nav className="w-full p-3 flex justify-around items-center">
       <div className="">
-        <h1 className="font-bold">LearnSync</h1>
+        <h1 className="font-bold">Sales Copilot</h1>
       </div>
       <div className="">
         <button type="button" name="toogleDarkMode" onClick={() => setDark(!dark)} className="border flex hover:bg-white/10 sm:min-w-[80px] items-center gap-2 text-sm border-zinc-600 hover:border-zinc-400 sm:rounded-lg rounded-full p-2">
