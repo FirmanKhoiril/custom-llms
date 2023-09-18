@@ -6,8 +6,8 @@ const manifestForPlugIn: Partial<VitePWAOptions> = {
   registerType: "prompt",
   includeAssets: ["favicon.ico", "apple-touch-icon.png", "android-chrome-512x512.png"],
   manifest: {
-    name: "SalesCopilot",
-    short_name: "salescopilot",
+    name: "Sales Copilot",
+    short_name: "Sales Copilot",
     description: "SalesCopilot is an AI-powered sales assistant that provides real-time transcription, live chat, automatic unprompted advice, integration with a custom knowledge base, and the ability to save and load past conversations.",
     icons: [
       {
@@ -36,7 +36,7 @@ const manifestForPlugIn: Partial<VitePWAOptions> = {
       },
     ],
     theme_color: "#171717",
-    background_color: "#f0e7db",
+    background_color: "#5555FF",
     display: "standalone",
     scope: "/",
     start_url: "/",

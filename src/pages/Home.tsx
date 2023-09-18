@@ -1,12 +1,13 @@
-import { Container } from "@mui/material";
-import { Conversation, Form } from "../components";
+import { Conversation, Form, Sales } from "../components";
+import { useContextState } from "../context/ContextProvider";
 
 const Home = () => {
+  const { toogleAsistant } = useContextState();
   return (
-    <Container sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 1 }}>
-      <Conversation />
+    <div className="flex py-4 flex-col justify-between gap-2 min-h-[50vh]">
+      <div className="max-h-[73vh] min-h-[73vh] overflow-y-auto">{toogleAsistant ? <Conversation /> : <Sales />}</div>
       <Form />
-    </Container>
+    </div>
   );
 };
 
