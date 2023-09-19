@@ -6,7 +6,7 @@ const Navbar = () => {
   const { dark, setDark } = useContextState();
 
   return (
-    <nav className="w-full p-3 flex sm:mx-0 justify-between items-center">
+    <nav className="w-full py-3 flex justify-between items-center">
       <Link to={"/"}>
         <h1 className="font-bold text-3xl tracking-tighter">Sales Copilot</h1>
       </Link>
