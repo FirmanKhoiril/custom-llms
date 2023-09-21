@@ -4,6 +4,7 @@ import { Navbar, ToogleAssistant } from "./components";
 import { useContextState } from "./context/ContextProvider";
 import Home from "./pages/Home";
 import { Container } from "@mui/material";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const { dark } = useContextState();
@@ -12,6 +13,7 @@ function App() {
       <main className="dark:bg-dark dark:text-white min-h-screen bg-light">
         <Container>
           <Navbar />
+          <Toaster />
           <ToogleAssistant />
           <Routes>
             <Route path="/" element={<Home />} />

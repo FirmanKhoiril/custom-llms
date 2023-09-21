@@ -1,15 +1,17 @@
 import axios from "axios";
 
+const server = "https://agile-cardigan-slug.cyclic.cloud/";
+
 const api = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: server,
 });
 
 export const Response = async (input: string) => {
-  console.log(input);
   try {
-    const response = await api.post(`/chat`, {
-      input,
+    const response: any = await api.post(`/api/question`, {
+      question: input,
     });
+
     return response;
   } catch (error) {
     console.log("error", error);

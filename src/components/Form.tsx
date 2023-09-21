@@ -3,26 +3,49 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { useContextState } from "../context/ContextProvider";
 import { Response } from "../api/fetchResponse";
 import { useMutation } from "react-query";
+import { useEffect } from "react";
+import toast from "react-hot-toast/headless";
 
 const Form = () => {
-  const { setUserInput, userInput } = useContextState();
+  const { setUserInput, userInput, conversation, currentTitle, setCurrentTitle, setPrevioutChat, setConversation } = useContextState();
 
   const { mutate: postChat } = useMutation({
     mutationFn: (input: string) => Response(input),
-    // onSuccess: () => {
-    //   client.invalidateQueries("posts");
-    // },
+    onSuccess: (data) => {
+      setConversation(data?.data?.text);
+    },
     onError: (err: any) => {
-      console.log(err);
+      toast.error("error", err);
     },
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     postChat(userInput);
-
-    setUserInput("");
   };
+
+  useEffect(() => {
+    if (!currentTitle && userInput && conversation) {
+      setCurrentTitle(userInput);
+    }
+
+    if (currentTitle && conversation && userInput) {
+      setPrevioutChat((prevChat: any) => [
+        ...prevChat,
+        {
+          title: currentTitle,
+          role: "user",
+          content: userInput,
+        },
+        {
+          role: "Sales Copilot",
+          title: currentTitle,
+          content: conversation.bot,
+        },
+      ]);
+    }
+    setUserInput("");
+  }, [conversation, currentTitle]);
 
   return (
     <form onSubmit={handleSubmit} className="relative group">
