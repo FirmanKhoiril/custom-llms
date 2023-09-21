@@ -1,11 +1,18 @@
 import { useContextState } from "../context/ContextProvider";
+import { useEffect, useRef } from "react";
+import { FaRobot } from "react-icons/fa";
 type TConversation = {
   content: string;
   user: string;
   role: string;
 };
 const Sales = () => {
-  const { previoutChat } = useContextState();
+  const divRef: any = useRef(null);
+  const { previoutChat, conversation } = useContextState();
+
+  useEffect(() => {
+    divRef?.current?.scrollIntoView();
+  }, [conversation]);
 
   return (
     <div>
@@ -16,15 +23,19 @@ const Sales = () => {
           <div>Chat now</div>
         ) : (
           <div className="flex flex-col gap-2">
-            {previoutChat.map((prev: TConversation, i: number) => (
-              <div className={`${prev.role === "Sales Copilot" ? "bg-white/10 rounded-lg" : ""}  px-4 flex gap-4 justify-between flex-wrap  py-6 items-center min-h-[80px]`} key={prev.role + i}>
-                <h1 className={`${prev.role === "user" ? "text-violet-400" : ""} capitalize text-lg`}>{prev.role === "user" ? "You" : prev.role}:</h1>
-                <p>{prev.content}</p>
+            {previoutChat.map((prev: TConversation) => (
+              <div className={`${prev.role === "Sales Copilot" ? "dark:bg-white/10 bg-black/10  rounded-lg" : ""}  px-4 flex gap-3 flex-col  py-6 min-h-[80px]`} key={prev.content}>
+                <div className="flex items-center gap-2">
+                  {prev.role === "Sales Copilot" ? <FaRobot size={18} /> : ""}
+                  <h1 className={`${prev.role === "user" ? "text-violet-400" : ""} capitalize text-lg font-bold`}>{prev.role === "user" ? "You" : prev.role}:</h1>
+                </div>
+                <p className="">{prev.content}</p>
               </div>
             ))}
           </div>
         )}
       </div>
+      <div ref={divRef} />
     </div>
   );
 };
