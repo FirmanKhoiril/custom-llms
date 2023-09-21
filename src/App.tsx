@@ -13,7 +13,7 @@ function App() {
       <main className="dark:bg-dark dark:text-white min-h-screen bg-light">
         <Container>
           <Navbar />
-          <Toaster />
+          <Toaster position="top-center" reverseOrder={true} />
           <ToogleAssistant />
           <Routes>
             <Route path="/" element={<Home />} />
