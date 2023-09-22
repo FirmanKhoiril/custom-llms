@@ -18,7 +18,7 @@ const Sales = () => {
   const handleTextToSpeech = (content: string) => {
     let speech = new SpeechSynthesisUtterance();
     let voices = window.speechSynthesis.getVoices();
-    speech.voice = voices[0];
+    speech.voice = voices[0]; // male
     speech.text = content;
     window.speechSynthesis.speak(speech);
   };

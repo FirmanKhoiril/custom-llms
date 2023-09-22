@@ -6,14 +6,8 @@ const Home = () => {
   return (
     <div className="flex py-5 flex-col justify-between gap-6">
       <div className="max-h-[73vh] overflow-y-auto scrollbar-none">
-        {toogleAsistant ? (
-          <Transcript />
-        ) : (
-          <>
-            <Sales />
-            <Form />
-          </>
-        )}
+        {toogleAsistant ? <Transcript /> : <Sales />}
+        {!toogleAsistant && <Form />}
       </div>
     </div>
   );

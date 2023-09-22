@@ -45,8 +45,8 @@ const Form = () => {
           content: userInput,
         },
         {
-          role: "Sales Copilot",
           title: currentTitle,
+          role: "Sales Copilot",
           content: conversation.bot,
         },
       ]);
