@@ -6,9 +6,10 @@ import { useMutation } from "react-query";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { ColorRing } from "react-loader-spinner";
+import { HiOutlineSaveAs } from "react-icons/hi";
 
 const Form = () => {
-  const { setUserInput, userInput, conversation, currentTitle, setCurrentTitle, setPrevioutChat, setConversation } = useContextState();
+  const { setUserInput, userInput, conversation, currentTitle, setCurrentTitle, setPrevioutChat, setConversation, setShowModal } = useContextState();
 
   const {
     mutate: postChat,
@@ -25,7 +26,7 @@ const Form = () => {
     },
   });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement> | React.ButtonHTMLAttributes<HTMLButtonElement> | any) => {
     e.preventDefault();
     postChat(userInput);
   };
@@ -64,7 +65,7 @@ const Form = () => {
   );
 
   return (
-    <form onSubmit={handleSubmit} className="relative group">
+    <form onSubmit={handleSubmit} className="relative group mt-4 flex">
       <button className="absolute group-focus:text-black/30 text-black group-focus:dark:text-white/30 top-[13px] left-1 p-2.5 dark:text-white rounded-xl" name="message" aria-label="message" type="submit">
         <AiOutlineSearch size={20} />
       </button>
@@ -74,10 +75,19 @@ const Form = () => {
         onChange={(e) => setUserInput(e.target.value)}
         placeholder="Send a message"
         required
-        className=" rounded-xl resize-none bg-black/10 dark:bg-white/10 outline-none border border-transparent placeholder:text-black/60 dark:placeholder:text-white/60 tracking-tight focus:border-violet-600 px-10 py-5 w-full"
+        className=" rounded-xl resize-none bg-black/10 dark:bg-white/10 outline-none border border-transparent placeholder:text-black/60 dark:placeholder:text-white/60 tracking-tight focus:border-violet-600 pl-10 pr-32 py-5 w-full"
       />
-      <button className="bg-violet-600 absolute top-2.5 right-2 p-2.5 text-white rounded-xl hover:bg-violet-700" name="message" aria-label="message" type="button">
+      <button onClick={handleSubmit} className="bg-violet-600 absolute top-2.5 right-[64px] p-2.5 text-white rounded-xl drop-shadow-md hover:bg-violet-700" name="message" aria-label="message" type="button">
         {isSuccess ? <HiMiniPaperAirplane size={25} /> : loader}
+      </button>
+      <button
+        type="button"
+        name="showModalSaveTranscript"
+        aria-label="showModalSaveTranscript"
+        onClick={() => setShowModal(true)}
+        className=" absolute text-sm rounded-xl top-2.5 right-2 drop-shadow-md bg-blue-500 text-white hover:bg-blue-600  p-2.5"
+      >
+        <HiOutlineSaveAs size={25} />
       </button>
     </form>
   );

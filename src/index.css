@@ -3,5 +3,9 @@
 @tailwind utilities;
 
 body {
-  @apply font-Montserrat;
+  @apply font-Montserrat relative;
+}
+
+.blackscreen {
+  @apply h-screen bg-black/50 fixed z-10  w-full;
 }
