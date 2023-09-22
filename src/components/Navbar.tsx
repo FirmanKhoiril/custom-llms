@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <nav className="w-full py-3 flex justify-between items-center">
       <Link to={"/"}>
-        <h1 className="font-bold text-3xl tracking-tighter">Sales Copilot</h1>
+        <h1 className="font-bold text-3xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-violet-500 via-blue-500 to-violet-400">Sales Copilot</h1>
       </Link>
       <div>
         <button

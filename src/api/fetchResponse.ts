@@ -1,18 +1,9 @@
 import axios from "axios";
+import { TContent } from "../types/Types";
 
 const server = "https://agile-cardigan-slug.cyclic.cloud/";
 // const local = "http://localhost:5000";
 
-export type TContent = {
-  title: string;
-  transcript: [
-    {
-      role: string;
-      content: string;
-      title: string;
-    }
-  ];
-};
 const api = axios.create({
   baseURL: server,
 });
@@ -25,8 +16,20 @@ export const Response = async (input: string) => {
 
     return response;
   } catch (error) {
-    console.log("error", error);
+    throw new Error(`${error} Error`);
   }
+};
+
+export const getTranscript = async () => {
+  const response = await api.get("/api/transcript");
+  return response;
+};
+
+export const getTranscriptById = async (id: string | any) => {
+  const response = await api.post("/api/transcript/id", {
+    id,
+  });
+  return response;
 };
 
 export const postTranscript = async (transcript: TContent) => {
@@ -37,6 +40,6 @@ export const postTranscript = async (transcript: TContent) => {
 
     return response;
   } catch (error) {
-    console.log(`${error}error`);
+    throw new Error("Error Happen");
   }
 };

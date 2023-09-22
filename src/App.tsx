@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import { ModelSaveTranscript, Navbar, ToogleAssistant } from "./components";
+import { ModelSaveTranscript, Navbar } from "./components";
 import { useContextState } from "./context/ContextProvider";
-import Home from "./pages/Home";
 import { Container } from "@mui/material";
 import { Toaster } from "react-hot-toast";
+import { ReloadChat, Home } from "./pages";
 
 function App() {
   const { dark, showModal } = useContextState();
@@ -19,12 +19,12 @@ function App() {
         ) : (
           ""
         )}
+        <Toaster position="top-center" />
         <Container>
           <Navbar />
-          <Toaster position="top-center" reverseOrder={true} />
-          <ToogleAssistant />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/chat/:chatId" element={<ReloadChat />} />
           </Routes>
         </Container>
       </main>

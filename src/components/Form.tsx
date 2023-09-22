@@ -5,17 +5,19 @@ import { Response } from "../api/fetchResponse";
 import { useMutation } from "react-query";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
-import { ColorRing } from "react-loader-spinner";
 import { HiOutlineSaveAs } from "react-icons/hi";
+import { Loading } from ".";
 
 const Form = () => {
-  const { setUserInput, userInput, conversation, currentTitle, setCurrentTitle, setPrevioutChat, setConversation, setShowModal } = useContextState();
+  const { setUserInput, userInput, conversation, currentTitle, setCurrentTitle, previoutChat, setPrevioutChat, setConversation, setShowModal } = useContextState();
 
   const {
     mutate: postChat,
     isLoading,
+
     isError,
     isSuccess,
+    data,
   } = useMutation({
     mutationFn: (input: string) => Response(input),
     onSuccess: (data) => {
@@ -26,6 +28,7 @@ const Form = () => {
     },
   });
 
+  console.log(data);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement> | React.ButtonHTMLAttributes<HTMLButtonElement> | any) => {
     e.preventDefault();
     postChat(userInput);
@@ -52,17 +55,13 @@ const Form = () => {
       ]);
     }
     setUserInput("");
-  }, [conversation, currentTitle]);
+  }, [conversation, currentTitle, isSuccess, data]);
 
   if (isError) {
     toast.error("Error");
   }
 
-  const loader = isLoading ? (
-    <ColorRing visible={true} height="25" width="24" ariaLabel="blocks-loading" wrapperStyle={{}} wrapperClass="blocks-wrapper" colors={["#ffffff", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]} />
-  ) : (
-    <HiMiniPaperAirplane size={25} />
-  );
+  const loader = isLoading ? <Loading /> : <HiMiniPaperAirplane size={25} />;
 
   return (
     <form onSubmit={handleSubmit} className="relative group mt-4 flex">
@@ -77,18 +76,28 @@ const Form = () => {
         required
         className=" rounded-xl resize-none bg-black/10 dark:bg-white/10 outline-none border border-transparent placeholder:text-black/60 dark:placeholder:text-white/60 tracking-tight focus:border-violet-600 pl-10 pr-32 py-5 w-full"
       />
-      <button onClick={handleSubmit} className="bg-violet-600 absolute top-2.5 right-[64px] p-2.5 text-white rounded-xl drop-shadow-md hover:bg-violet-700" name="message" aria-label="message" type="button">
+      <button
+        onClick={handleSubmit}
+        className={` bg-violet-600 absolute  p-2.5 text-white rounded-xl drop-shadow-md hover:bg-violet-700 top-2.5 ${previoutChat.length === 0 ? "right-2" : " right-[64px]"}`}
+        name="message"
+        aria-label="message"
+        type="button"
+      >
         {isSuccess ? <HiMiniPaperAirplane size={25} /> : loader}
       </button>
-      <button
-        type="button"
-        name="showModalSaveTranscript"
-        aria-label="showModalSaveTranscript"
-        onClick={() => setShowModal(true)}
-        className=" absolute text-sm rounded-xl top-2.5 right-2 drop-shadow-md bg-blue-500 text-white hover:bg-blue-600  p-2.5"
-      >
-        <HiOutlineSaveAs size={25} />
-      </button>
+      {previoutChat.length === 0 ? (
+        ""
+      ) : (
+        <button
+          type="button"
+          name="showModalSaveTranscript"
+          aria-label="showModalSaveTranscript"
+          onClick={() => setShowModal(true)}
+          className=" absolute text-sm rounded-xl top-2.5 right-2 drop-shadow-md bg-blue-500 text-white hover:bg-blue-600  p-2.5"
+        >
+          <HiOutlineSaveAs size={25} />
+        </button>
+      )}
     </form>
   );
 };
