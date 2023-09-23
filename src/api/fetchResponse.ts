@@ -1,7 +1,8 @@
 import axios from "axios";
 import { TContent } from "../types/Types";
 
-const server = "https://agile-cardigan-slug.cyclic.cloud/";
+const server = "https://server-llms-app.cyclic.cloud";
+
 // const local = "http://localhost:5000";
 
 const api = axios.create({

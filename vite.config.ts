@@ -49,6 +49,6 @@ export default defineConfig({
   base: "./",
   plugins: [react(), VitePWA(manifestForPlugIn)],
   server: {
-    port: 3000,
+    port: 3001,
   },
 });

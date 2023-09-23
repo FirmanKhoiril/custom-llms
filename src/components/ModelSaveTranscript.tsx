@@ -7,7 +7,7 @@ import { TContent } from "../types/Types";
 
 const ModelSaveTranscript = () => {
   const client = useQueryClient();
-  const { showModal, transcriptName, previoutChat, setTranscriptName, setShowModal } = useContextState();
+  const { showModal, transcriptName, previoutChat, setToogleAsistant, setTranscriptName, setShowModal, setPrevioutChat } = useContextState();
 
   const {
     mutate: postTranscrip,
@@ -38,6 +38,8 @@ const ModelSaveTranscript = () => {
     } else {
       setShowModal(false);
     }
+    setPrevioutChat([]);
+    setToogleAsistant(true);
   };
 
   const loader = isSuccess ? "Already Save" : "Save and Exit";

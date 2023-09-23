@@ -12,11 +12,11 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
   const [transcriptName, setTranscriptName] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [selectedName, setSelectedName] = useState("");
+
   const values = useMemo(
     () => ({
       dark,
       setDark,
-
       conversation,
       setConversation,
       transcriptName,

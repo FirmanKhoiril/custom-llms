@@ -28,7 +28,7 @@ const Conversation = () => {
       {data?.data.length === 0 ? (
         <div className="flex gap-2">There's no transcript save in this section.</div>
       ) : (
-        <select className="bg-black/10 dark:bg-white/10 py-5 px-4 rounded-xl" onChange={(e) => setSelectedName(e.currentTarget.value)}>
+        <select className="bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 py-5 px-4 rounded-xl" onChange={(e) => setSelectedName(e.currentTarget.value)}>
           {isSuccess
             ? data?.data.map((transcript: TData) => (
                 <option className="px-2 dark:text-black" key={transcript._id} value={transcript._id}>

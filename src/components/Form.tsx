@@ -17,7 +17,6 @@ const Form = () => {
 
     isError,
     isSuccess,
-    data,
   } = useMutation({
     mutationFn: (input: string) => Response(input),
     onSuccess: (data) => {
@@ -28,7 +27,6 @@ const Form = () => {
     },
   });
 
-  console.log(data);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement> | React.ButtonHTMLAttributes<HTMLButtonElement> | any) => {
     e.preventDefault();
     postChat(userInput);
@@ -50,12 +48,12 @@ const Form = () => {
         {
           title: currentTitle,
           role: "Sales Copilot",
-          content: conversation.bot,
+          content: conversation?.bot,
         },
       ]);
     }
     setUserInput("");
-  }, [conversation, currentTitle, isSuccess, data]);
+  }, [conversation, currentTitle]);
 
   if (isError) {
     toast.error("Error");
