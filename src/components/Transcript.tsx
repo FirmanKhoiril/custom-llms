@@ -43,7 +43,7 @@ const Conversation = () => {
         name="buttonLoadSelectedName"
         aria-label="buttonLoadSelectedName"
         onClick={handleLoadSelectedName}
-        className="py-3.5 drop-shadow-md bg-blue-500 font-semibold tracking-tight rounded-xl hover:bg-blue-600 text-white"
+        className="py-3.5 drop-shadow-md bg-secondary font-semibold tracking-tight rounded-xl hover:bg-hoverSecondary text-white"
       >
         Load Selected Name
       </button>

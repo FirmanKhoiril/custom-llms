@@ -10,6 +10,8 @@ export interface IConversation {
     content: string;
     title: string;
   };
+  chatId?: string | any;
+  title?: string | any;
 }
 export type TConversation = {
   role: string;

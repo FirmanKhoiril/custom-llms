@@ -24,6 +24,7 @@ const ModelSaveTranscript = () => {
     },
     onSuccess: () => {
       client.invalidateQueries("getTranscript");
+      toast.success(`${transcriptName} success get save to database `);
     },
   });
 

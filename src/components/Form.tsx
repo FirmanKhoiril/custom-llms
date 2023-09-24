@@ -14,7 +14,6 @@ const Form = () => {
   const {
     mutate: postChat,
     isLoading,
-
     isError,
     isSuccess,
   } = useMutation({
@@ -33,6 +32,7 @@ const Form = () => {
   };
 
   useEffect(() => {
+    console.log(currentTitle, userInput, conversation);
     if (!currentTitle && userInput && conversation) {
       setCurrentTitle(userInput);
     }
@@ -76,7 +76,7 @@ const Form = () => {
       />
       <button
         onClick={handleSubmit}
-        className={` bg-violet-600 absolute  p-2.5 text-white rounded-xl drop-shadow-md hover:bg-violet-700 top-2.5 ${previoutChat.length === 0 ? "right-2" : " right-[64px]"}`}
+        className={` bg-primary absolute  p-2.5 text-white rounded-xl drop-shadow-md hover:bg-hoverPrimary top-2.5 ${previoutChat.length === 0 ? "right-2" : " right-[64px]"}`}
         name="message"
         aria-label="message"
         type="button"
@@ -91,7 +91,7 @@ const Form = () => {
           name="showModalSaveTranscript"
           aria-label="showModalSaveTranscript"
           onClick={() => setShowModal(true)}
-          className=" absolute text-sm rounded-xl top-2.5 right-2 drop-shadow-md bg-blue-500 text-white hover:bg-blue-600  p-2.5"
+          className=" absolute text-sm rounded-xl top-2.5 right-2 drop-shadow-md bg-secondary text-white hover:bg-hoverSecondary  p-2.5"
         >
           <HiOutlineSaveAs size={25} />
         </button>

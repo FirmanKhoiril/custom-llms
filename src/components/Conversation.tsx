@@ -2,7 +2,16 @@ import { BsFillMicFill } from "react-icons/bs";
 import { FaRobot } from "react-icons/fa";
 import { IConversation } from "../types/Types";
 
-const Conversation = ({ item }: IConversation) => {
+const Conversation = ({ item, chatId, title }: IConversation) => {
+  if (chatId && item.role === "Sales Copilot") {
+    let speech = new SpeechSynthesisUtterance();
+    let voices = window.speechSynthesis.getVoices();
+    speech.voice = voices[0];
+    speech.text = item.content;
+    window.speechSynthesis.speak(speech);
+    window.speechSynthesis.pause();
+  }
+
   const handleTextToSpeech = (content: string) => {
     let speech = new SpeechSynthesisUtterance();
     let voices = window.speechSynthesis.getVoices();
@@ -10,15 +19,24 @@ const Conversation = ({ item }: IConversation) => {
     speech.text = content;
     window.speechSynthesis.speak(speech);
   };
+
   return (
     <div className={`${item.role === "Sales Copilot" ? "dark:bg-white/10 bg-black/10  " : ""}  px-4 flex gap-3 flex-col rounded-lg  py-6 min-h-[80px]`}>
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           {item.role === "Sales Copilot" ? <FaRobot size={20} /> : ""}
-          <h1 className={`${item.role === "user" ? "text-violet-400" : ""} capitalize text-lg font-bold`}>{item.role === "user" ? "You" : item.role}:</h1>
+          <div className="">
+            <h1 className={`${item.role === "user" ? "text-violet-500" : ""} capitalize text-lg font-bold `}>{item.role === "user" ? title || "You" : item.role}</h1>
+          </div>
         </div>
         {item.role === "Sales Copilot" ? (
-          <button name="buttonAddText" onClick={() => handleTextToSpeech(item.content)} aria-label="buttonAddText" type="button" className="p-2 dark:hover:bg-white/30 hover:bg-black/30 rounded-lg bg-black/20 text-white dark:bg-white/20">
+          <button
+            name="buttonAddText"
+            onClick={() => handleTextToSpeech(item.content)}
+            aria-label="buttonAddText"
+            type="button"
+            className="p-2 dark:hover:bg-white/30 hover:bg-black/30 rounded-lg bg-black/20 text-white drop-shadow-md dark:bg-white/20"
+          >
             <BsFillMicFill size={20} />
           </button>
         ) : (

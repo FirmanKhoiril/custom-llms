@@ -10,6 +10,10 @@ export default {
       backgroundColor: {
         dark: "#202124",
         light: "#fff",
+        primary: "#7c3aed",
+        hoverPrimary: "#6d28d9",
+        secondary: "#3b82f6",
+        hoverSecondary: "#2563eb",
       },
     },
   },
