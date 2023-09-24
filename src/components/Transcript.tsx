@@ -18,7 +18,7 @@ const Conversation = () => {
     setSelectedName("");
   };
 
-  if (isLoading || isFetching) return <Loading />;
+  if (isLoading && isFetching) return <Loading width={60} height={60} />;
 
   if (isError) {
     toast.error("Error happen");

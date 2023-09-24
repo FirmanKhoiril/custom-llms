@@ -4,6 +4,10 @@ export type TData = {
   transcript: [TContent];
 };
 
+export interface ILoading {
+  width?: number;
+  height?: number;
+}
 export interface IConversation {
   item: {
     role: string;

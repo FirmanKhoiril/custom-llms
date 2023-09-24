@@ -27,7 +27,7 @@ const ReloadChat = () => {
     getTranscriptId(chatId);
   }, [chatId]);
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <Loading width={60} height={60} />;
 
   const handleBack = () => {
     navigate("/");
