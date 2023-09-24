@@ -3,9 +3,9 @@ import { FaRobot } from "react-icons/fa";
 import { IConversation } from "../types/Types";
 
 const Conversation = ({ item, chatId, title }: IConversation) => {
+  let speech = new SpeechSynthesisUtterance();
+  let voices = window.speechSynthesis.getVoices();
   if (chatId && item.role === "Sales Copilot") {
-    let speech = new SpeechSynthesisUtterance();
-    let voices = window.speechSynthesis.getVoices();
     speech.voice = voices[0];
     speech.text = item.content;
     window.speechSynthesis.speak(speech);
@@ -13,8 +13,7 @@ const Conversation = ({ item, chatId, title }: IConversation) => {
   }
 
   const handleTextToSpeech = (content: string) => {
-    let speech = new SpeechSynthesisUtterance();
-    let voices = window.speechSynthesis.getVoices();
+    window.speechSynthesis.resume();
     speech.voice = voices[0]; // male
     speech.text = content;
     window.speechSynthesis.speak(speech);
