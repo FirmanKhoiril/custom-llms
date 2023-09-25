@@ -7,11 +7,11 @@ import { TConversation } from "../types/Types";
 
 const Sales = () => {
   const divRef: any = useRef(null);
-  const { previoutChat } = useContextState();
+  const { conversation } = useContextState();
 
   useEffect(() => {
     divRef?.current?.scrollIntoView();
-  }, [previoutChat]);
+  }, [conversation]);
 
   const handleTextToSpeech = (content: string) => {
     let speech = new SpeechSynthesisUtterance();
@@ -44,11 +44,11 @@ const Sales = () => {
         </div>
         <p>Hi! I'm your personal sales assistant. if you have any questions, want advice, or anything else, just send me a message!</p>
       </div>
-      {previoutChat.length === 0 ? (
+      {conversation.length === 0 ? (
         ""
       ) : (
         <div className="flex flex-col gap-2 relative">
-          {previoutChat.map((item: TConversation, idx: number) => (
+          {conversation.map((item: TConversation, idx: number) => (
             <Conversation item={item} key={idx} />
           ))}
         </div>

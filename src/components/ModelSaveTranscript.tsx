@@ -7,7 +7,7 @@ import { TContent } from "../types/Types";
 
 const ModelSaveTranscript = () => {
   const client = useQueryClient();
-  const { showModal, transcriptName, previoutChat, setToogleAsistant, setTranscriptName, setShowModal, setPrevioutChat } = useContextState();
+  const { showModal, transcriptName, conversation, setTranscriptName, setShowModal, setConversation } = useContextState();
 
   const {
     mutate: postTranscrip,
@@ -17,6 +17,9 @@ const ModelSaveTranscript = () => {
   } = useMutation({
     mutationFn: async (transcript: TContent) => {
       postTranscript(transcript);
+    },
+    onSettled: () => {
+      client.invalidateQueries("getTranscript");
     },
     onError: (err, variables, context) => {
       console.log(err, variables, context);
@@ -32,15 +35,14 @@ const ModelSaveTranscript = () => {
     e.preventDefault();
     postTranscrip({
       title: transcriptName,
-      transcript: previoutChat,
+      transcript: conversation,
     });
     if (isError) {
       toast.error("Error Happen");
     } else {
       setShowModal(false);
     }
-    setPrevioutChat([]);
-    setToogleAsistant(true);
+    setConversation([]);
   };
 
   const loader = isSuccess ? "Already Save" : "Save and Exit";

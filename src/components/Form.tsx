@@ -3,13 +3,12 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { useContextState } from "../context/ContextProvider";
 import { Response } from "../api/fetchResponse";
 import { useMutation } from "react-query";
-import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { HiOutlineSaveAs } from "react-icons/hi";
 import { Loading } from ".";
 
 const Form = () => {
-  const { setUserInput, userInput, conversation, currentTitle, setCurrentTitle, previoutChat, setPrevioutChat, setConversation, setShowModal } = useContextState();
+  const { setUserInput, userInput, currentTitle, setCurrentTitle, conversation, setConversation, setShowModal } = useContextState();
 
   const {
     mutate: postChat,
@@ -19,7 +18,24 @@ const Form = () => {
   } = useMutation({
     mutationFn: (input: string) => Response(input),
     onSuccess: (data) => {
-      setConversation(data);
+      if (!currentTitle) {
+        setCurrentTitle(userInput);
+      }
+      setConversation((conver: any) => [
+        ...conver,
+        {
+          title: currentTitle,
+          role: "user",
+          content: userInput,
+        },
+        {
+          title: currentTitle,
+          role: "Sales Copilot",
+          content: data,
+        },
+      ]);
+
+      setUserInput("");
     },
     onError: (err: any) => {
       toast.error("error", err);
@@ -30,30 +46,6 @@ const Form = () => {
     e.preventDefault();
     postChat(userInput);
   };
-
-  useEffect(() => {
-    console.log(conversation);
-    if (!currentTitle && userInput && conversation) {
-      setCurrentTitle(userInput);
-    }
-
-    if (currentTitle && conversation && userInput) {
-      setPrevioutChat((prevChat: any) => [
-        ...prevChat,
-        {
-          title: currentTitle,
-          role: "user",
-          content: userInput,
-        },
-        {
-          title: currentTitle,
-          role: "Sales Copilot",
-          content: conversation,
-        },
-      ]);
-    }
-    setUserInput("");
-  }, [conversation, currentTitle, isSuccess]);
 
   if (isError) {
     toast.error("Error");
@@ -76,14 +68,14 @@ const Form = () => {
       />
       <button
         onClick={handleSubmit}
-        className={` bg-primary absolute  p-2.5 text-white rounded-xl drop-shadow-md hover:bg-hoverPrimary top-2.5 ${previoutChat.length === 0 ? "right-2" : " right-[64px]"}`}
+        className={` bg-primary absolute  p-2.5 text-white rounded-xl drop-shadow-md hover:bg-hoverPrimary top-2.5 ${conversation.length === 0 ? "right-2" : " right-[64px]"}`}
         name="message"
         aria-label="message"
         type="button"
       >
         {isSuccess ? <HiMiniPaperAirplane size={25} /> : loader}
       </button>
-      {previoutChat.length === 0 ? (
+      {conversation.length === 0 ? (
         ""
       ) : (
         <button
