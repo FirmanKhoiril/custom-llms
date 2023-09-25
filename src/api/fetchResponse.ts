@@ -1,29 +1,27 @@
 import axios from "axios";
 import { TContent } from "../types/Types";
 
-const server = "https://server-llms-app.cyclic.cloud";
+// const server = "https://server-llms-app.cyclic.cloud";
 
-// const local = "http://localhost:5000";
-
+const local = "http://localhost:5000";
 const api = axios.create({
-  baseURL: server,
+  baseURL: local,
 });
+
+export const getTranscript = async () => {
+  const response = await api.get("/api/transcript");
+  return response;
+};
 
 export const Response = async (input: string) => {
   try {
     const response: any = await api.post(`/api/question`, {
       question: input,
     });
-
-    return response;
+    return response?.data?.text?.bot;
   } catch (error) {
     throw new Error(`${error} Error`);
   }
-};
-
-export const getTranscript = async () => {
-  const response = await api.get("/api/transcript");
-  return response;
 };
 
 export const getTranscriptById = async (id: string | any) => {

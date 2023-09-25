@@ -16,11 +16,10 @@ const Form = () => {
     isLoading,
     isError,
     isSuccess,
-    data,
   } = useMutation({
     mutationFn: (input: string) => Response(input),
     onSuccess: (data) => {
-      setConversation(data.data.text);
+      setConversation(data);
     },
     onError: (err: any) => {
       toast.error("error", err);
@@ -33,6 +32,7 @@ const Form = () => {
   };
 
   useEffect(() => {
+    console.log(conversation);
     if (!currentTitle && userInput && conversation) {
       setCurrentTitle(userInput);
     }
@@ -48,12 +48,12 @@ const Form = () => {
         {
           title: currentTitle,
           role: "Sales Copilot",
-          content: conversation?.bot,
+          content: conversation,
         },
       ]);
     }
     setUserInput("");
-  }, [isSuccess, conversation, data, currentTitle]);
+  }, [conversation, currentTitle, isSuccess]);
 
   if (isError) {
     toast.error("Error");

@@ -7,11 +7,11 @@ import { TConversation } from "../types/Types";
 
 const Sales = () => {
   const divRef: any = useRef(null);
-  const { previoutChat, conversation } = useContextState();
+  const { previoutChat } = useContextState();
 
   useEffect(() => {
     divRef?.current?.scrollIntoView();
-  }, [conversation]);
+  }, [previoutChat]);
 
   const handleTextToSpeech = (content: string) => {
     let speech = new SpeechSynthesisUtterance();

@@ -14,7 +14,8 @@ const Conversation = () => {
   });
 
   const handleLoadSelectedName = () => {
-    navigate(`/chat/${selectedName}`, { replace: true });
+    if (selectedName.length !== 0) navigate(`/chat/${selectedName}`, { replace: true });
+
     setSelectedName("");
   };
 
