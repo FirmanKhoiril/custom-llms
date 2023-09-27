@@ -1,11 +1,11 @@
 import axios from "axios";
 import { TContent } from "../types/Types";
 
-const server = "https://server-llms-app.cyclic.cloud";
+// const server = "https://server-llms-app.cyclic.cloud";
 
-// const local = "http://localhost:5000";
+const local = "http://localhost:5000";
 const api = axios.create({
-  baseURL: server,
+  baseURL: local,
 });
 
 export const getTranscript = async () => {

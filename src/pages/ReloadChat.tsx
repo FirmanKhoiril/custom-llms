@@ -71,10 +71,12 @@ const ReloadChat = () => {
           </div>
         )}
       </div>
-      <Box sx={{ display: "flex", alignItems: "center", gap: 2, justifyContent: "center" }}>
-        <Form chatId={chatId} />
-        <MicAudio />
-      </Box>
+      {!toogleAsistant && (
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2, justifyContent: "center" }}>
+          <Form chatId={chatId} />
+          <MicAudio />
+        </Box>
+      )}
     </div>
   );
 };
