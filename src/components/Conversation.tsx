@@ -1,16 +1,20 @@
 import { BsFillMicFill } from "react-icons/bs";
 import { FaRobot } from "react-icons/fa";
 import { IConversation } from "../types/Types";
+import { useEffect } from "react";
 
 const Conversation = ({ item, chatId, title }: IConversation) => {
   let speech = new SpeechSynthesisUtterance();
   let voices = window.speechSynthesis.getVoices();
-  if (chatId && item.role === "Sales Copilot") {
-    speech.voice = voices[0];
-    speech.text = item.content;
-    window.speechSynthesis.speak(speech);
-    window.speechSynthesis.pause();
-  }
+
+  useEffect(() => {
+    if (chatId && item.role === "Sales Copilot") {
+      speech.voice = voices[0];
+      speech.text = item.content;
+      window.speechSynthesis.speak(speech);
+      window.speechSynthesis.pause();
+    }
+  }, [chatId]);
 
   const handleTextToSpeech = (content: string) => {
     window.speechSynthesis.resume();

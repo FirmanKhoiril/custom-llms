@@ -8,6 +8,9 @@ export interface ILoading {
   width?: number;
   height?: number;
 }
+export interface IForm {
+  chatId?: any | string;
+}
 export interface IConversation {
   item: {
     role: string;

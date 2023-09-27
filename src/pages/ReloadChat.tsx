@@ -2,13 +2,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "react-query";
 import { getTranscriptById } from "../api/fetchResponse";
 import { useEffect } from "react";
-import { Conversation, Loading } from "../components";
+import { Conversation, Form, Loading, MicAudio, ToogleAssistant } from "../components";
 import { TConversation } from "../types/Types";
 import { MdArrowBack } from "react-icons/md";
+import { useContextState } from "../context/ContextProvider";
+import { Box } from "@mui/material";
 
 const ReloadChat = () => {
   const { chatId } = useParams();
   const navigate = useNavigate();
+  const { toogleAsistant, conversation } = useContextState();
   if (!chatId) {
     navigate("/", {
       replace: true,
@@ -34,23 +37,44 @@ const ReloadChat = () => {
   };
   return (
     <div>
-      {isSuccess ? (
-        <div className="flex flex-col gap-4 pb-10">
-          <div className="flex justify-between items-center">
-            <div className=" flex rounded-full items-center gap-3">
-              <button type="button" className="p-2.5 hover:bg-black/10 rounded-full dark:hover:bg-white/10" name="buttonBackUrlHistory" aria-label="buttonBackUrlHistory" onClick={handleBack}>
-                <MdArrowBack size={25} />
-              </button>
-              <h1 className="text-4xl font-bold capitalize">{data?.data.data.title}</h1>
-            </div>
+      <ToogleAssistant />
+      <div className="max-h-[73vh] overflow-y-auto scrollbar-none">
+        {toogleAsistant ? (
+          <div className="">
+            {isSuccess && (
+              <div className="flex flex-col gap-4 pb-10">
+                <div className="flex justify-between items-center">
+                  <div className=" flex rounded-full items-center gap-3">
+                    <button type="button" className="p-2.5 hover:bg-black/10 rounded-full dark:hover:bg-white/10" name="buttonBackUrlHistory" aria-label="buttonBackUrlHistory" onClick={handleBack}>
+                      <MdArrowBack size={25} />
+                    </button>
+                    <h1 className="text-4xl font-bold capitalize">{data?.data.data.title}</h1>
+                  </div>
+                </div>
+                {data?.data.data.transcript?.map((item: TConversation, idx: number) => (
+                  <Conversation item={item} key={idx} chatId={chatId} title={data?.data.data.title} />
+                ))}
+              </div>
+            )}
           </div>
-          {data?.data.data.transcript?.map((item: TConversation, idx: number) => (
-            <Conversation item={item} key={idx} chatId={chatId} title={data?.data.data.title} />
-          ))}
-        </div>
-      ) : (
-        ""
-      )}
+        ) : (
+          <div className="">
+            {conversation.length !== 0 ? (
+              <div className="flex flex-col gap-2 relative">
+                {conversation.map((item: TConversation, idx: number) => (
+                  <Conversation item={item} key={idx} />
+                ))}
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+        )}
+      </div>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 2, justifyContent: "center" }}>
+        <Form chatId={chatId} />
+        <MicAudio />
+      </Box>
     </div>
   );
 };

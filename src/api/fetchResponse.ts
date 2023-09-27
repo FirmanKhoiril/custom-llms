@@ -1,11 +1,11 @@
 import axios from "axios";
 import { TContent } from "../types/Types";
 
-const server = "https://server-llms-app.cyclic.cloud";
+// const server = "https://server-llms-app.cyclic.cloud";
 
-// const local = "http://localhost:5000";
+const local = "http://localhost:5000";
 const api = axios.create({
-  baseURL: server,
+  baseURL: local,
 });
 
 export const getTranscript = async () => {
@@ -16,6 +16,17 @@ export const getTranscript = async () => {
 export const Response = async (input: string) => {
   try {
     const response: any = await api.post(`/api/question`, {
+      question: input,
+    });
+    return response?.data?.text?.bot;
+  } catch (error) {
+    throw new Error(`${error} Error`);
+  }
+};
+export const RecommendedResponse = async (input: string) => {
+  console.log(input);
+  try {
+    const response: any = await api.post(`/api/question/recomended`, {
       question: input,
     });
     return response?.data?.text?.bot;

@@ -11,10 +11,16 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
   const [transcriptName, setTranscriptName] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [selectedName, setSelectedName] = useState("");
+  const [mic, setMic] = useState(false);
+  const [micText, setMicText] = useState("");
 
   const values = useMemo(
     () => ({
       dark,
+      micText,
+      setMicText,
+      mic,
+      setMic,
       setDark,
       conversation,
       setConversation,
@@ -31,7 +37,28 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
       toogleAsistant,
       setToogleAsistant,
     }),
-    [dark, setDark, conversation, selectedName, setSelectedName, setConversation, transcriptName, setTranscriptName, showModal, setShowModal, currentTitle, setCurrentTitle, userInput, setUserInput, toogleAsistant, setToogleAsistant]
+    [
+      micText,
+      setMicText,
+      dark,
+      mic,
+      setMic,
+      setDark,
+      conversation,
+      selectedName,
+      setSelectedName,
+      setConversation,
+      transcriptName,
+      setTranscriptName,
+      showModal,
+      setShowModal,
+      currentTitle,
+      setCurrentTitle,
+      userInput,
+      setUserInput,
+      toogleAsistant,
+      setToogleAsistant,
+    ]
   );
 
   return <StateContext.Provider value={values}>{children}</StateContext.Provider>;

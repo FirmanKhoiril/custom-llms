@@ -3,11 +3,11 @@ import { BsFillSunFill } from "react-icons/bs";
 import { useContextState } from "../context/ContextProvider";
 import { Link } from "react-router-dom";
 const Navbar = () => {
-  const { dark, setDark } = useContextState();
+  const { dark, setDark, setToogleAssistant } = useContextState();
 
   return (
     <nav className="w-full py-3 flex justify-between items-center">
-      <Link to={"/"}>
+      <Link to={"/"} onClick={() => setToogleAssistant(true)}>
         <h1 className="font-bold text-3xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-violet-500 via-blue-500 to-violet-400">Sales Copilot</h1>
       </Link>
       <div>
