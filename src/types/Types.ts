@@ -3,6 +3,13 @@ export type TData = {
   _id: string;
   transcript: [TContent];
 };
+export interface IData {
+  data: {
+    title: string;
+    _id: string;
+    transcript: [TContent];
+  };
+}
 
 export interface ILoading {
   width?: number;

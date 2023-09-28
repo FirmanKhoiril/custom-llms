@@ -13,10 +13,14 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
   const [selectedName, setSelectedName] = useState("");
   const [mic, setMic] = useState(false);
   const [micText, setMicText] = useState("");
+  const [toogleFilterSearch, setToogleFilterSearch] = useState(false);
+  const [searchTranscript, setSearchTranscript] = useState([]);
 
   const values = useMemo(
     () => ({
       dark,
+      searchTranscript,
+      setSearchTranscript,
       micText,
       setMicText,
       mic,
@@ -36,10 +40,16 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
       setUserInput,
       toogleAsistant,
       setToogleAsistant,
+      toogleFilterSearch,
+      setToogleFilterSearch,
     }),
     [
       micText,
+      searchTranscript,
+      setSearchTranscript,
       setMicText,
+      toogleFilterSearch,
+      setToogleFilterSearch,
       dark,
       mic,
       setMic,
