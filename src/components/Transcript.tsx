@@ -22,6 +22,7 @@ const Conversation = () => {
   const handleEnterName = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       const id = searchTranscript[0]?._id;
+      if (searchTranscript.length === 0) return;
       navigate(`/chat/${id}`, { replace: true });
     }
   };
