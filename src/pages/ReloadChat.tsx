@@ -7,9 +7,11 @@ import { TConversation } from "../types/Types";
 import { MdArrowBack } from "react-icons/md";
 import { useContextState } from "../context/ContextProvider";
 import { Box } from "@mui/material";
+import { useSpeechRecognition } from "react-speech-recognition";
 
 const ReloadChat = () => {
   const { chatId } = useParams();
+  const { transcript } = useSpeechRecognition();
   const navigate = useNavigate();
   const { toogleAsistant, conversation } = useContextState();
   if (!chatId) {
@@ -35,6 +37,7 @@ const ReloadChat = () => {
   const handleBack = () => {
     navigate("/");
   };
+
   return (
     <div>
       <ToogleAssistant />
@@ -64,6 +67,14 @@ const ReloadChat = () => {
                 {conversation.map((item: TConversation, idx: number) => (
                   <Conversation item={item} key={idx} />
                 ))}
+                <div className="px-4 flex gap-3 flex-col rounded-lg mt-2  py-6 min-h-[80px] dark:bg-white/10 bg-black/10">
+                  <div className="flex gap-2 justify-between  items-center">
+                    <div className="flex gap-2 items-center">
+                      <h1 className="text-lg font-bold">You:</h1>
+                    </div>
+                  </div>
+                  <p>{transcript !== "" ? transcript : ""}</p>
+                </div>
               </div>
             ) : (
               ""

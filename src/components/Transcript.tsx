@@ -24,6 +24,7 @@ const Conversation = () => {
       const id = searchTranscript[0]?._id;
       if (searchTranscript.length === 0) return;
       navigate(`/chat/${id}`, { replace: true });
+      setToogleFilterSearch(false);
     }
   };
 
@@ -43,7 +44,7 @@ const Conversation = () => {
             type="text"
             onFocus={() => setToogleFilterSearch(true)}
             placeholder="Start a Load"
-            onBlur={() => setToogleFilterSearch(false)}
+            // onBlur={() => setToogleFilterSearch(false)}
             onChange={(e) => {
               const value = e.target.value;
               const newFilter = data?.data.filter((search: TData) => {

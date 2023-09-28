@@ -7,12 +7,13 @@ const FilterSearch = () => {
   const { setSelectedName, selectedName, setToogleFilterSearch, setSearchTranscript, searchTranscript } = useContextState();
 
   return (
-    <div className="py-6 px-2  absolute z-10 bg-[#3b3d40] grow min-w-[320px] max-w-[340px]">
+    <div className="p-2 absolute z-10 bg-[#e8e5e5] dark:bg-[#3b3d40] grow min-w-[320px] max-w-[340px]">
       {searchTranscript.length !== 0 ? (
         <div className="flex flex-col gap-2">
           {searchTranscript.map((item: TData) => (
             <button
               key={item._id}
+              className="w-full bg-black/10 dark:bg-white/10 py-4"
               type="button"
               onClick={() => {
                 setSelectedName(item._id);
