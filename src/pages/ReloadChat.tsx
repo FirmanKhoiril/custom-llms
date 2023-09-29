@@ -2,9 +2,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "react-query";
 import { getTranscriptById } from "../api/fetchResponse";
 import { useEffect } from "react";
-import { Conversation, Form, Loading, MicAudio, ToogleAssistant } from "../components";
+import { Conversation, Form, Loading, MicAudio, StopAudio } from "../components";
 import { TConversation } from "../types/Types";
-import { MdArrowBack } from "react-icons/md";
 import { useContextState } from "../context/ContextProvider";
 import { Box } from "@mui/material";
 import { useSpeechRecognition } from "react-speech-recognition";
@@ -19,6 +18,7 @@ const ReloadChat = () => {
       replace: true,
     });
   }
+
   const {
     mutate: getTranscriptId,
     data,
@@ -34,31 +34,21 @@ const ReloadChat = () => {
 
   if (isLoading) return <Loading width={60} height={60} />;
 
-  const handleBack = () => {
-    navigate("/");
-  };
-
   return (
     <div>
-      <ToogleAssistant />
       <div className="max-h-[73vh] overflow-y-auto scrollbar-none">
         {toogleAsistant ? (
-          <div className="">
+          <div className="flex flex-col gap-4 justify-between min-h-[40vh] max-h-[73vh] items-center">
+            <MicAudio />
+
             {isSuccess && (
               <div className="flex flex-col gap-4 pb-10">
-                <div className="flex justify-between items-center">
-                  <div className=" flex rounded-full items-center gap-3">
-                    <button type="button" className="p-2.5 hover:bg-black/10 rounded-full dark:hover:bg-white/10" name="buttonBackUrlHistory" aria-label="buttonBackUrlHistory" onClick={handleBack}>
-                      <MdArrowBack size={25} />
-                    </button>
-                    <h1 className="text-4xl font-bold capitalize">{data?.data.data.title}</h1>
-                  </div>
-                </div>
                 {data?.data.data.transcript?.map((item: TConversation, idx: number) => (
                   <Conversation item={item} key={idx} chatId={chatId} title={data?.data.data.title} />
                 ))}
               </div>
             )}
+            <StopAudio />
           </div>
         ) : (
           <div className="">
@@ -87,7 +77,6 @@ const ReloadChat = () => {
       {!toogleAsistant && (
         <Box sx={{ display: "flex", alignItems: "center", gap: 2, justifyContent: "center" }}>
           <Form chatId={chatId} />
-          <MicAudio />
         </Box>
       )}
     </div>

@@ -4,14 +4,14 @@ const ToogleAssistant = () => {
   const { setToogleAsistant, toogleAsistant } = useContextState();
 
   return (
-    <div className="flex gap-2 pb-2 text-[12px] items-center">
+    <div className="flex gap-2.5 sm:gap-4 text-[12px] items-center">
       <button
         disabled={toogleAsistant}
         type="button"
         name="toogleAsistant"
         aria-label="toogleAsistant"
         onClick={() => setToogleAsistant(true)}
-        className="py-1.5 disabled:bg-primary px-3 rounded-lg text-white bg-violet-500 hover:violet-600"
+        className="py-1.5 md:text-base  disabled:border-violet-500 border-b-[3px] border-transparent  text-black dark:text-white "
       >
         Transcript
       </button>
@@ -21,9 +21,9 @@ const ToogleAssistant = () => {
         name="toogleAsistant"
         aria-label="toogleAsistant"
         onClick={() => setToogleAsistant(false)}
-        className="disabled:bg-primary py-1.5 px-3 rounded-lg text-white bg-violet-500 hover:violet-600"
+        className="py-1.5 md:text-base  disabled:border-violet-500 border-b-[3px] border-transparent  text-black dark:text-white "
       >
-        Sales Assistant
+        Leadership Assistant
       </button>
     </div>
   );

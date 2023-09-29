@@ -6,9 +6,10 @@ const manifestForPlugIn: Partial<VitePWAOptions> = {
   registerType: "prompt",
   includeAssets: ["favicon.ico", "apple-touch-icon.png", "android-chrome-512x512.png"],
   manifest: {
-    name: "Sales Copilot",
-    short_name: "Sales Copilot",
-    description: "SalesCopilot is an AI-powered sales assistant that provides real-time transcription, live chat, automatic unprompted advice, integration with a custom knowledge base, and the ability to save and load past conversations.",
+    name: "GrowthSpark AI",
+    short_name: "GrowthSpark AI",
+    description:
+      "GrowthSpark AI is an AI-powered Leader assistant that provides real-time transcription, live chat, automatic unprompted advice, integration with a custom knowledge base, and the ability to save and load past conversations.",
     icons: [
       {
         src: "/android-chrome-192x192.png",

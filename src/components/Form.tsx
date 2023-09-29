@@ -1,4 +1,5 @@
 import { HiMiniPaperAirplane } from "react-icons/hi2";
+import "regenerator-runtime/runtime";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useContextState } from "../context/ContextProvider";
 import { RecommendedResponse, Response } from "../api/fetchResponse";
@@ -8,9 +9,12 @@ import { HiOutlineSaveAs } from "react-icons/hi";
 import { Loading } from ".";
 import { IForm } from "../types/Types";
 import { useEffect } from "react";
+import { useSpeechRecognition } from "react-speech-recognition";
 
 const Form = ({ chatId }: IForm) => {
-  const { setUserInput, micText, userInput, currentTitle, setCurrentTitle, conversation, setConversation, setShowModal } = useContextState();
+  const { setUserInput, userInput, currentTitle, setCurrentTitle, conversation, setConversation, setShowModal } = useContextState();
+  const { transcript, finalTranscript } = useSpeechRecognition();
+
   const {
     mutate: postChat,
     isLoading,
@@ -51,14 +55,14 @@ const Form = ({ chatId }: IForm) => {
     mutationFn: (input: string) => RecommendedResponse(input),
     onSuccess: (data) => {
       if (!currentTitle) {
-        setCurrentTitle(micText === "" ? userInput : micText);
+        setCurrentTitle(transcript === "" ? userInput : transcript);
       }
       setConversation((conver: any) => [
         ...conver,
         {
           title: currentTitle,
           role: "user",
-          content: micText !== "" ? micText : userInput,
+          content: transcript !== "" ? transcript : userInput,
         },
         {
           title: currentTitle,
@@ -75,10 +79,10 @@ const Form = ({ chatId }: IForm) => {
   });
 
   useEffect(() => {
-    if (micText !== "") {
-      postQuestion(micText);
+    if (finalTranscript) {
+      postQuestion(transcript);
     }
-  }, [micText]);
+  }, [finalTranscript]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement> | React.ButtonHTMLAttributes<HTMLButtonElement> | any) => {
     e.preventDefault();

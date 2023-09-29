@@ -1,13 +1,12 @@
 import "regenerator-runtime/runtime";
-import { BsFillMicMuteFill, BsFillMicFill } from "react-icons/bs";
-import { useContextState } from "../context/ContextProvider";
+import { BsFillMicFill } from "react-icons/bs";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { PiSpeakerSlashBold } from "react-icons/pi";
 
 const MicAudio = () => {
-  const { mic, setMic, setMicText } = useContextState();
-  const { transcript, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
+  const { listening, browserSupportsSpeechRecognition } = useSpeechRecognition();
 
+  //  transcript, resetTranscript, finalTranscript
   if (!browserSupportsSpeechRecognition) {
     return (
       <div className="flex flex-col items-center gap-2">
@@ -17,38 +16,31 @@ const MicAudio = () => {
     );
   }
 
+  const handleStartVoiceRecognition = () => {
+    SpeechRecognition.startListening({ continuous: true });
+  };
+
   return (
-    <>
-      {mic ? (
-        <button
-          type="button"
-          onClick={() => {
-            setMic(false);
-            setMicText(transcript);
-            SpeechRecognition.stopListening();
-            resetTranscript();
-          }}
-          name="buttonMic"
-          aria-label="buttonMicOffOn"
-          className=" py-5 px-4 sm:px-5 mt-4 bg-gradient-to-r from-blue-600 via-blue-400 to-blue-500 hover:from-blue-500 hover:via-blue-300 hover:to-blue-400 text-white drop-shadow-lg rounded-xl"
-        >
-          <BsFillMicFill size={25} />
-        </button>
-      ) : (
-        <button
-          type="button"
-          onClick={() => {
-            SpeechRecognition.startListening();
-            setMic(true);
-          }}
-          name="buttonMic"
-          aria-label="buttonMicOffOn"
-          className=" py-5 px-4 sm:px-5 mt-4 bg-gradient-to-r from-blue-600 via-blue-400 to-blue-500 hover:from-blue-500 hover:via-blue-300 hover:to-blue-400 text-white drop-shadow-lg rounded-xl"
-        >
-          <BsFillMicMuteFill size={25} />
-        </button>
-      )}
-    </>
+    <div className="flex flex-col items-center gap-4">
+      <button
+        type="button"
+        onClick={handleStartVoiceRecognition}
+        name="buttonMic"
+        aria-label="buttonMicOn"
+        className="p-5 mt-4 bg-gradient-to-r from-blue-600 via-blue-400 to-blue-500 hover:from-blue-500 hover:via-blue-300 hover:to-blue-400 text-white drop-shadow-lg rounded-full"
+      >
+        <BsFillMicFill size={25} />
+      </button>
+      <button
+        onClick={handleStartVoiceRecognition}
+        className={` ${listening ? "bg-hoverSecondary" : "bg-secondary"} py-2 rounded-lg text-white drop-shadow-md hover:bg-hoverSecondary text-sm px-4`}
+        type="button"
+        name="buttonMic"
+        aria-label="buttonMicOn"
+      >
+        Start Recording
+      </button>
+    </div>
   );
 };
 
