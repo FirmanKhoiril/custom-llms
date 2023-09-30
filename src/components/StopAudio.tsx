@@ -1,14 +1,17 @@
 import "regenerator-runtime/runtime";
-// import { BsFillMicMuteFill } from "react-icons/bs";
-import SpeechRecognition from "react-speech-recognition";
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { Timer, Waves } from ".";
+import { useContextState } from "../context/ContextProvider";
 
-// { useSpeechRecognition }
 const StopAudio = () => {
-  // const { finalTranscript, transcript } = useSpeechRecognition();
+  const { setSeconds, setMinutes } = useContextState();
+  const { transcript } = useSpeechRecognition();
 
   const handleStopVoiceRecognition = () => {
-    SpeechRecognition.abortListening();
+    SpeechRecognition.stopListening();
+    console.log(transcript);
+    setSeconds(0);
+    setMinutes(0);
   };
   return (
     <div

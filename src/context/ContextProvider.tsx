@@ -12,10 +12,16 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
   const [showModal, setShowModal] = useState(false);
   const [selectedName, setSelectedName] = useState("");
   const [searchTranscript, setSearchTranscript] = useState("");
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
 
   const values = useMemo(
     () => ({
       dark,
+      minutes,
+      setMinutes,
+      seconds,
+      setSeconds,
       searchTranscript,
       setSearchTranscript,
       setDark,
@@ -36,6 +42,10 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
     }),
     [
       searchTranscript,
+      minutes,
+      setMinutes,
+      seconds,
+      setSeconds,
       setSearchTranscript,
       dark,
       setDark,
