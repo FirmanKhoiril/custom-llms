@@ -48,7 +48,7 @@ const Conversation = () => {
           />
         </form>
         {data?.data.length === 0 ? (
-          <div className="bg-black/5 outline-none w-full dark:bg-white/5  py-3 px-2 rounded-xl">There's no transcript save.</div>
+          <div className="bg-black/5 outline-none w-full dark:bg-white/5  py-3 px-2 rounded-xl truncate">There's no transcript save.</div>
         ) : (
           <select className="bg-black/10 outline-none w-full dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 py-5 px-4 rounded-xl" onChange={(e) => setSelectedName(e.currentTarget.value)}>
             {isSuccess

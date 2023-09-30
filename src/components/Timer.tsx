@@ -32,7 +32,7 @@ const Timer = () => {
 
   return (
     <div className="flex gap-2 items-center">
-      <h1>{`${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`}</h1>
+      <h1 className="font-bold text-[16px]">{`${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`}</h1>
     </div>
   );
 };
