@@ -2,7 +2,7 @@ import { HiMiniPaperAirplane } from "react-icons/hi2";
 import "regenerator-runtime/runtime";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useContextState } from "../context/ContextProvider";
-import { RecommendedResponse, Response } from "../api/fetchResponse";
+import { RecommendedResponse } from "../api/fetchResponse";
 import { useMutation } from "react-query";
 import toast from "react-hot-toast";
 import { HiOutlineSaveAs } from "react-icons/hi";
@@ -16,53 +16,22 @@ const Form = ({ chatId }: IForm) => {
   const { transcript, finalTranscript } = useSpeechRecognition();
 
   const {
-    mutate: postChat,
+    mutate: postQuestion,
     isLoading,
     isError,
     isSuccess,
   } = useMutation({
-    mutationFn: (input: string) => Response(input),
-    onSuccess: (data) => {
-      if (!currentTitle) {
-        setCurrentTitle(userInput);
-      }
-      setConversation((conver: any) => [
-        ...conver,
-        {
-          title: currentTitle,
-          role: "user",
-          content: userInput,
-        },
-        {
-          title: currentTitle,
-          role: "Sales Copilot",
-          content: data,
-        },
-      ]);
-
-      setUserInput("");
-    },
-    onError: (err: any) => {
-      toast.error("error", err);
-    },
-  });
-  const {
-    mutate: postQuestion,
-    isLoading: loading,
-    isError: error,
-    isSuccess: success,
-  } = useMutation({
     mutationFn: (input: string) => RecommendedResponse(input),
     onSuccess: (data) => {
       if (!currentTitle) {
-        setCurrentTitle(transcript === "" ? userInput : transcript);
+        setCurrentTitle(!finalTranscript && transcript === "" ? userInput : transcript);
       }
       setConversation((conver: any) => [
         ...conver,
         {
           title: currentTitle,
           role: "user",
-          content: transcript !== "" ? transcript : userInput,
+          content: finalTranscript && transcript !== "" ? transcript : userInput,
         },
         {
           title: currentTitle,
@@ -86,18 +55,15 @@ const Form = ({ chatId }: IForm) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement> | React.ButtonHTMLAttributes<HTMLButtonElement> | any) => {
     e.preventDefault();
-    if (chatId) {
-      postQuestion(userInput);
-    } else {
-      postChat(userInput);
-    }
+
+    postQuestion(userInput);
   };
 
-  if (isError || error) {
+  if (isError) {
     toast.error("Error");
   }
 
-  const loader = isLoading || loading ? <Loading /> : <HiMiniPaperAirplane size={25} />;
+  const loader = isLoading ? <Loading /> : <HiMiniPaperAirplane size={25} />;
 
   return (
     <form onSubmit={handleSubmit} className="relative w-full group mt-4 flex">
@@ -119,7 +85,7 @@ const Form = ({ chatId }: IForm) => {
         aria-label="message"
         type="button"
       >
-        {isSuccess || success ? <HiMiniPaperAirplane size={25} /> : loader}
+        {isSuccess ? <HiMiniPaperAirplane size={25} /> : loader}
       </button>
       {!chatId && conversation.length !== 0 ? (
         <button

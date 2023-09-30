@@ -11,7 +11,7 @@ const ToogleAssistant = () => {
         name="toogleAsistant"
         aria-label="toogleAsistant"
         onClick={() => setToogleAsistant(true)}
-        className="py-1.5 md:text-base  disabled:border-violet-500 border-b-[3px] border-transparent  text-black dark:text-white "
+        className="py-1.5 md:text-base  disabled:border-violet-500 border-b-[3px] border-transparent  text-black dark:text-white  tracking-tight"
       >
         Transcript
       </button>
@@ -21,7 +21,7 @@ const ToogleAssistant = () => {
         name="toogleAsistant"
         aria-label="toogleAsistant"
         onClick={() => setToogleAsistant(false)}
-        className="py-1.5 md:text-base  disabled:border-violet-500 border-b-[3px] border-transparent  text-black dark:text-white "
+        className="py-1.5 md:text-base  disabled:border-violet-500 border-b-[3px] border-transparent  text-black dark:text-white  tracking-tight"
       >
         Leadership Assistant
       </button>

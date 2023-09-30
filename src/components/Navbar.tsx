@@ -5,9 +5,8 @@ import { Link, useLocation } from "react-router-dom";
 import { ToogleAssistant } from ".";
 const Navbar = () => {
   const { dark, setDark, setToogleAssistant } = useContextState();
-  const location = useLocation(); // Get the current URL location
+  const location = useLocation();
 
-  // Conditionally render ToogleAssistant based on URL
   const showToogleAssistant = location.pathname.startsWith("/chat/");
 
   return (
