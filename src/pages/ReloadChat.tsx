@@ -57,7 +57,7 @@ const ReloadChat = () => {
                 ))}
               </div>
             )}
-            {listening ? <StopAudio /> : ""}
+            {listening && <StopAudio />}
           </div>
         ) : (
           <div className="">
