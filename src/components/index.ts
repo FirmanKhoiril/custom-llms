@@ -8,3 +8,5 @@ export { default as ToogleAssistant } from "./ToogleAssistant";
 export { default as ModelSaveTranscript } from "./ModelSaveTranscript";
 export { default as MicAudio } from "./MicAudio";
 export { default as StopAudio } from "./StopAudio";
+export { default as Waves } from "./Waves";
+export { default as Timer } from "./Timer";
