@@ -40,7 +40,16 @@ const ReloadChat = () => {
         {toogleAsistant ? (
           <div className="flex flex-col gap-4 justify-between min-h-[40vh] max-h-[73vh] items-center">
             <MicAudio />
-
+            {transcript !== "" && (
+              <div className="px-4 flex gap-3 flex-col rounded-lg mt-2  py-6 min-h-[80px] dark:bg-white/10 bg-black/10">
+                <div className="flex gap-2 justify-between  items-center">
+                  <div className="flex gap-2 items-center">
+                    <h1 className="text-lg font-bold">You:</h1>
+                  </div>
+                </div>
+                <p>{transcript}</p>
+              </div>
+            )}
             {isSuccess && (
               <div className="flex flex-col gap-4 pb-10">
                 {data?.data.data.transcript?.map((item: TConversation, idx: number) => (
@@ -48,8 +57,7 @@ const ReloadChat = () => {
                 ))}
               </div>
             )}
-            {listening ?  <StopAudio /> : ""}
-           
+            {listening ? <StopAudio /> : ""}
           </div>
         ) : (
           <div className="">
@@ -61,16 +69,6 @@ const ReloadChat = () => {
               </div>
             ) : (
               ""
-            )}
-            {transcript !== "" && (
-              <div className="px-4 flex gap-3 flex-col rounded-lg mt-2  py-6 min-h-[80px] dark:bg-white/10 bg-black/10">
-                <div className="flex gap-2 justify-between  items-center">
-                  <div className="flex gap-2 items-center">
-                    <h1 className="text-lg font-bold">You:</h1>
-                  </div>
-                </div>
-                <p>{transcript}</p>
-              </div>
             )}
           </div>
         )}
