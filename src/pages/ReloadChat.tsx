@@ -10,7 +10,7 @@ import { useSpeechRecognition } from "react-speech-recognition";
 
 const ReloadChat = () => {
   const { chatId } = useParams();
-  const { transcript } = useSpeechRecognition();
+  const { transcript, listening } = useSpeechRecognition();
   const navigate = useNavigate();
   const { toogleAsistant, conversation } = useContextState();
   if (!chatId) {
@@ -48,7 +48,8 @@ const ReloadChat = () => {
                 ))}
               </div>
             )}
-            <StopAudio />
+            {listening ?  <StopAudio /> : ""}
+           
           </div>
         ) : (
           <div className="">

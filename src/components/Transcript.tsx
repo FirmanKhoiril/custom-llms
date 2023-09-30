@@ -41,14 +41,14 @@ const Conversation = () => {
         <form onSubmit={handleSubmit} className="relative">
           <input
             required
-            className="bg-black/10 dark:bg-white/10 w-full outline-none border border-transparent focus:border-violet-500 placeholder:text-black/60 dark:placeholder:text-white/60  grow min-w-[320px] max-w-[340px]  py-5 px-4"
+            className="bg-black/10 dark:bg-white/10 w-full outline-none border border-transparent focus:border-violet-500 placeholder:text-black/60 dark:placeholder:text-white/60  grow min-w-[300px] max-w-[340px]  py-5 px-4"
             type="text"
-            placeholder="Start a Load"
+            placeholder="Start New Conversation"
             onChange={(e) => setSearchTranscript(e.target.value)}
           />
         </form>
         {data?.data.length === 0 ? (
-          <div className="flex gap-2">There's no transcript save in this section.</div>
+          <div className="bg-black/5 outline-none w-full dark:bg-white/5  py-3 px-2 rounded-xl">There's no transcript save.</div>
         ) : (
           <select className="bg-black/10 outline-none w-full dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 py-5 px-4 rounded-xl" onChange={(e) => setSelectedName(e.currentTarget.value)}>
             {isSuccess

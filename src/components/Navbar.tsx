@@ -1,17 +1,21 @@
 import { MdDarkMode } from "react-icons/md";
 import { BsFillSunFill } from "react-icons/bs";
 import { useContextState } from "../context/ContextProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ToogleAssistant } from ".";
 const Navbar = () => {
   const { dark, setDark, setToogleAssistant } = useContextState();
+  const location = useLocation(); // Get the current URL location
+
+  // Conditionally render ToogleAssistant based on URL
+  const showToogleAssistant = location.pathname.startsWith("/chat/");
 
   return (
     <nav className="w-full py-3 flex justify-between items-center">
       <Link to={"/"} onClick={() => setToogleAssistant(true)}>
         <h1 className="font-bold text-xl md:text-3xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-violet-500 via-blue-500 to-violet-400">GrowthSpark AI</h1>
       </Link>
-      <ToogleAssistant />
+      {showToogleAssistant && <ToogleAssistant />}
       <div>
         <button
           type="button"
