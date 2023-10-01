@@ -8,7 +8,6 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
   const [conversationRecording, setConversationRecording] = useState([]);
   const [toogleAsistant, setToogleAsistant] = useState(false);
   const [transcriptName, setTranscriptName] = useState("");
-  const [selectedName, setSelectedName] = useState("");
   const [searchTranscript, setSearchTranscript] = useState("");
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
@@ -30,8 +29,6 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
       successRecommendation,
       setSuccessRecommendation,
       transcriptName,
-      selectedName,
-      setSelectedName,
       setTranscriptName,
       userInput,
       setUserInput,
@@ -55,8 +52,6 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
       setSearchTranscript,
       dark,
       setDark,
-      selectedName,
-      setSelectedName,
       transcriptName,
       setTranscriptName,
       userInput,
