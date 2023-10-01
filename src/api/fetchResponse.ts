@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TContent } from "../types/Types";
+import { TContent, Type } from "../types/Types";
 
 const server = "https://server-llms-app.cyclic.cloud";
 
@@ -23,29 +23,34 @@ export const Response = async (input: string) => {
     throw new Error(`${error} Error`);
   }
 };
-export const RecommendedResponse = async (input: string) => {
-  console.log(input);
+export const RecommendedResponse = async ({ input, title }: Type) => {
   try {
     const response: any = await api.post(`/api/question/recomended`, {
       question: input,
+      title,
     });
-    return response?.data?.text?.bot;
+    return response;
   } catch (error) {
     throw new Error(`${error} Error`);
   }
 };
 
-export const getTranscriptById = async (id: string | any) => {
-  const response = await api.post("/api/transcript/id", {
-    id,
-  });
-  return response;
+export const getTranscriptById = async (id: any) => {
+  try {
+    const response = await api.post("/api/transcript/id", {
+      id,
+    });
+    return response;
+  } catch (error) {
+    throw new Error(`${error} Error`);
+  }
 };
 
-export const postTranscript = async (transcript: TContent) => {
+export const saveConversation = async ({ chatId, transcript }: TContent) => {
   try {
-    const response = await api.post(`/api/transcript`, {
-      transcript,
+    const response = await api.post(`/api/save/transcript`, {
+      data: transcript,
+      chatId,
     });
 
     return response;

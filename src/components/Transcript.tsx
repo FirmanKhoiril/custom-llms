@@ -17,9 +17,8 @@ const Conversation = () => {
     if (searchTranscript.length !== 0) {
       navigate(`/chat/${searchTranscript}`);
       toast.success(`Make new Conversation with ${searchTranscript} `);
-      setSearchTranscript("");
     } else {
-      navigate(`/chat/${selectedName}`, { replace: true });
+      navigate(`/transcript/${selectedName}`, { replace: true });
       setSelectedName("");
     }
   };
@@ -43,7 +42,8 @@ const Conversation = () => {
             required
             className="bg-black/10 dark:bg-white/10 w-full outline-none border border-transparent focus:border-violet-500 placeholder:text-black/60 dark:placeholder:text-white/60  grow min-w-[300px] max-w-[340px]  py-5 px-4"
             type="text"
-            placeholder="Start New Conversation"
+            value={searchTranscript}
+            placeholder="Start new conversation"
             onChange={(e) => setSearchTranscript(e.target.value)}
           />
         </form>
@@ -51,13 +51,17 @@ const Conversation = () => {
           <div className="bg-black/5 outline-none w-full dark:bg-white/5  py-3 px-2 rounded-xl truncate">There's no transcript save.</div>
         ) : (
           <select className="bg-black/10 outline-none w-full dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 py-5 px-4 rounded-xl" onChange={(e) => setSelectedName(e.currentTarget.value)}>
-            {isSuccess
-              ? data?.data.map((transcript: TData) => (
+            {isSuccess ? (
+              <>
+                {data?.data.map((transcript: TData) => (
                   <option className="px-2 dark:text-black" key={transcript._id} value={transcript._id}>
-                    {transcript.title}
+                    {transcript.chatId}
                   </option>
-                ))
-              : ""}
+                ))}
+              </>
+            ) : (
+              ""
+            )}
           </select>
         )}
       </div>

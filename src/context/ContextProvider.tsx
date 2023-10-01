@@ -5,60 +5,60 @@ const StateContext = createContext({});
 export const ContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [dark, setDark] = useState(false);
   const [userInput, setUserInput] = useState("");
-  const [conversation, setConversation] = useState([]);
+  const [conversationRecording, setConversationRecording] = useState([]);
   const [toogleAsistant, setToogleAsistant] = useState(false);
-  const [currentTitle, setCurrentTitle] = useState(null);
   const [transcriptName, setTranscriptName] = useState("");
-  const [showModal, setShowModal] = useState(false);
   const [selectedName, setSelectedName] = useState("");
   const [searchTranscript, setSearchTranscript] = useState("");
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
+  const [conversationId, setConversationId] = useState("");
+  const [successRecommendation, setSuccessRecommendation] = useState(false);
 
   const values = useMemo(
     () => ({
       dark,
       minutes,
+      conversationRecording,
+      setConversationRecording,
       setMinutes,
       seconds,
       setSeconds,
       searchTranscript,
       setSearchTranscript,
       setDark,
-      conversation,
-      setConversation,
+      successRecommendation,
+      setSuccessRecommendation,
       transcriptName,
       selectedName,
       setSelectedName,
       setTranscriptName,
-      showModal,
-      setShowModal,
-      currentTitle,
-      setCurrentTitle,
       userInput,
       setUserInput,
       toogleAsistant,
       setToogleAsistant,
+      conversationId,
+      setConversationId,
     }),
     [
       searchTranscript,
+      conversationId,
+      successRecommendation,
+      setSuccessRecommendation,
+      setConversationId,
       minutes,
+      conversationRecording,
+      setConversationRecording,
       setMinutes,
       seconds,
       setSeconds,
       setSearchTranscript,
       dark,
       setDark,
-      conversation,
       selectedName,
       setSelectedName,
-      setConversation,
       transcriptName,
       setTranscriptName,
-      showModal,
-      setShowModal,
-      currentTitle,
-      setCurrentTitle,
       userInput,
       setUserInput,
       toogleAsistant,

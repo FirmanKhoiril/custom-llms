@@ -1,70 +1,71 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useMutation } from "react-query";
-import { getTranscriptById } from "../api/fetchResponse";
-import { useEffect } from "react";
-import { Conversation, Form, Loading, MicAudio, StopAudio } from "../components";
-import { TConversation } from "../types/Types";
+import { CardTranscript, Conversation, Form, MicAudio, StopAudio } from "../components";
+import { TContent, TConversation } from "../types/Types";
 import { useContextState } from "../context/ContextProvider";
 import { Box } from "@mui/material";
 import { useSpeechRecognition } from "react-speech-recognition";
+import { useMutation, useQueryClient } from "react-query";
+import { saveConversation } from "../api/fetchResponse";
+import { useEffect } from "react";
 
 const ReloadChat = () => {
+  const client = useQueryClient();
   const { chatId } = useParams();
   const { transcript, listening } = useSpeechRecognition();
   const navigate = useNavigate();
-  const { toogleAsistant, conversation } = useContextState();
+  const { toogleAsistant, conversationRecording, successRecommendation, setSuccessRecommendation } = useContextState();
+
+  const { mutate: postConversation } = useMutation({
+    mutationFn: ({ transcript, chatId }: TContent) => saveConversation({ transcript, chatId }),
+    onSuccess: () => {
+      client.invalidateQueries("getTranscript");
+      setSuccessRecommendation(false);
+    },
+  });
+
   if (!chatId) {
     navigate("/", {
       replace: true,
     });
   }
 
-  const {
-    mutate: getTranscriptId,
-    data,
-    isLoading,
-    isSuccess,
-  } = useMutation({
-    mutationFn: (id: string | any) => getTranscriptById(id),
-  });
-
   useEffect(() => {
-    getTranscriptId(chatId);
-  }, [chatId]);
-
-  if (isLoading) return <Loading width={60} height={60} />;
+    if (successRecommendation) {
+      postConversation({ transcript: conversationRecording, chatId });
+      setSuccessRecommendation(false);
+    }
+  }, [successRecommendation, conversationRecording, chatId, setSuccessRecommendation]);
 
   return (
     <div>
-      <div className="max-h-[73vh] overflow-y-auto scrollbar-none">
+      <div className="max-h-[73vh] w-full overflow-y-auto scrollbar-none">
         {toogleAsistant ? (
-          <div className="flex flex-col gap-4 justify-between  max-h-[73vh] items-center">
+          <div className="flex flex-col gap-4 w-full justify-between  max-h-[73vh]">
             <MicAudio />
-            {transcript !== "" && (
-              <div className="px-4 flex w-full gap-3 flex-col rounded-lg mt-2  py-6 min-h-[80px] dark:bg-white/10 bg-black/10">
-                <div className="flex gap-2 justify-between  items-center">
-                  <div className="flex gap-2 items-center">
+            <div className="px-4 flex w-full gap-3 items-end  rounded-lg mt-2  py-2 min-h-[80px] ">
+              {transcript !== "" && (
+                <div className="flex gap-2 justify-between  i tems-center">
+                  <div className="flex flex-col gap-2">
                     <h1 className="text-lg font-bold">You:</h1>
+                    <p>{transcript}</p>
                   </div>
                 </div>
-                <p>{transcript}</p>
-              </div>
-            )}
-            {isSuccess && (
-              <div className="flex flex-col gap-4">
-                {data?.data.data.transcript?.map((item: TConversation, idx: number) => (
-                  <Conversation item={item} key={idx} chatId={chatId} title={data?.data.data.title} />
+              )}
+            </div>
+            {conversationRecording.length !== 0 && (
+              <div className="flex flex-col gap-2 relative">
+                {conversationRecording.map((item: TConversation, idx: number) => (
+                  <CardTranscript item={item} key={item._id} i={idx} />
                 ))}
               </div>
             )}
-            {listening && <StopAudio />}
           </div>
         ) : (
           <div className="">
-            {conversation.length !== 0 ? (
+            {conversationRecording.length !== 0 ? (
               <div className="flex flex-col gap-2 relative">
-                {conversation.map((item: TConversation, idx: number) => (
-                  <Conversation item={item} key={idx} />
+                {conversationRecording.map((item: TConversation, idx: number) => (
+                  <Conversation item={item} key={item._id} chatId={chatId} i={idx} />
                 ))}
               </div>
             ) : (
@@ -73,9 +74,10 @@ const ReloadChat = () => {
           </div>
         )}
       </div>
+      {toogleAsistant && listening && <StopAudio />}
       {!toogleAsistant && (
         <Box sx={{ display: "flex", alignItems: "center", gap: 2, justifyContent: "center" }}>
-          <Form chatId={chatId} />
+          <Form />
         </Box>
       )}
     </div>
