@@ -5,11 +5,10 @@ import { useContextState } from "../context/ContextProvider";
 import { Response } from "../api/fetchResponse";
 import { useMutation } from "react-query";
 import toast from "react-hot-toast";
-import { HiOutlineSaveAs } from "react-icons/hi";
 import { Loading } from ".";
 
 const Form = () => {
-  const { setUserInput, userInput, conversationRecording, searchTranscript, setConversationRecording } = useContextState();
+  const { setUserInput, userInput, searchTranscript, setConversationRecording } = useContextState();
 
   function generateRandomId() {
     const length = 8; // You can adjust the length of the random ID as needed
@@ -59,7 +58,6 @@ const Form = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement> | React.ButtonHTMLAttributes<HTMLButtonElement> | any) => {
     e.preventDefault();
-
     postQuestion(userInput);
   };
 
@@ -82,22 +80,9 @@ const Form = () => {
         required
         className=" rounded-xl resize-none bg-black/10 dark:bg-white/10 outline-none border border-transparent placeholder:text-black/60 dark:placeholder:text-white/60 tracking-tight focus:border-violet-600 pl-10 pr-32 py-5 w-full"
       />
-      <button
-        onClick={handleSubmit}
-        className={` bg-primary absolute  p-2.5 text-white rounded-xl drop-shadow-md hover:bg-hoverPrimary top-2.5 ${conversationRecording.length !== 0 ? "right-[64px]" : "right-2"}`}
-        name="message"
-        aria-label="message"
-        type="button"
-      >
+      <button onClick={handleSubmit} className={` bg-primary absolute  p-2.5 text-white rounded-xl drop-shadow-md hover:bg-hoverPrimary top-2.5 right-2`} name="message" aria-label="message" type="button">
         {isSuccess ? <HiMiniPaperAirplane size={25} /> : loader}
       </button>
-      {conversationRecording.length !== 0 ? (
-        <button type="button" name="showModalSaveTranscript" aria-label="showModalSaveTranscript" className=" absolute text-sm rounded-xl top-2.5 right-2 drop-shadow-md bg-secondary text-white hover:bg-hoverSecondary  p-2.5">
-          <HiOutlineSaveAs size={25} />
-        </button>
-      ) : (
-        ""
-      )}
     </form>
   );
 };

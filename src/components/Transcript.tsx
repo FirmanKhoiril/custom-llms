@@ -5,10 +5,11 @@ import { useContextState } from "../context/ContextProvider";
 import toast from "react-hot-toast";
 import { Loading } from ".";
 import { TData } from "../types/Types";
+import moment from "moment";
 
 const Conversation = () => {
   const navigate = useNavigate();
-  const { setSearchTranscript, searchTranscript } = useContextState();
+  const { setSearchTranscript, searchTranscript, setToogleAsistant } = useContextState();
   const { data, isLoading, isError, isFetching, isSuccess } = useQuery(["getTranscript"], getTranscript, {
     refetchOnWindowFocus: false,
   });
@@ -17,6 +18,7 @@ const Conversation = () => {
     if (searchTranscript.length !== 0) {
       navigate(`/chat/${searchTranscript}`);
       toast.success(`Make new Conversation with ${searchTranscript} `);
+      setToogleAsistant(true);
     }
   };
 
@@ -24,6 +26,7 @@ const Conversation = () => {
     e.preventDefault();
     navigate(`/chat/${searchTranscript}`);
     toast.success(`Make new Conversation with ${searchTranscript} `);
+    setToogleAsistant(true);
   };
 
   if (isLoading && isFetching) return <Loading width={60} height={60} />;
@@ -38,7 +41,7 @@ const Conversation = () => {
         <form onSubmit={handleSubmit} className="relative w-full">
           <input
             required
-            className="rounded-xl resize-none bg-black/10 dark:bg-white/10 outline-none border border-transparent placeholder:text-black/60 dark:placeholder:text-white/60 tracking-tight focus:border-violet-600 pl-10 pr-32 py-5 w-full"
+            className="rounded-xl resize-none bg-black/10 dark:bg-white/10 outline-none border border-transparent placeholder:text-black/60 dark:placeholder:text-white/60 tracking-tight focus:border-violet-600 px-4 py-5 w-full"
             type="text"
             value={searchTranscript}
             placeholder="Make new conversation"
@@ -62,17 +65,21 @@ const Conversation = () => {
           isSuccess && (
             <>
               <h1 className=" pb-4 pt-6 text-xl font-bold ">Previous Chat</h1>
-              {data?.data.map((transcript: TData) => (
-                <button
-                  className="px-2 py-4 w-full dark:text-white text-black dark:hover:bg-white/30 hover:bg-black/30 mb-4 rounded-xl bg-black/20 dark:bg-white/20 "
-                  onClick={() => {
-                    navigate(`/transcript/${transcript._id}`);
-                  }}
-                  key={transcript._id}
-                >
-                  {transcript.chatId}
-                </button>
-              ))}
+              {data?.data
+                .slice()
+                .reverse()
+                .map((transcript: TData) => (
+                  <button
+                    className="px-4 py-4 w-full dark:text-white text-black dark:hover:bg-white/30 hover:bg-black/30 mb-4 flex flex-col rounded-xl bg-black/20 dark:bg-white/20 "
+                    onClick={() => {
+                      navigate(`/transcript/${transcript._id}`);
+                    }}
+                    key={transcript._id}
+                  >
+                    <p className="text-lg font-bold"> {transcript.chatId}</p>
+                    <span className="text-sm text-black/70 dark:text-white/60 tracking-tight">{moment(transcript?.transcript[0]?.createdAt).fromNow()}</span>
+                  </button>
+                ))}
             </>
           )
         )}

@@ -5,6 +5,7 @@ import { useContextState } from "../context/ContextProvider";
 import { TConversation } from "../types/Types";
 import { CardTranscript, Conversation, Loading } from "../components";
 import toast from "react-hot-toast";
+import { Box } from "@mui/material";
 
 const SelectedTranscript = () => {
   const { id } = useParams();
@@ -36,13 +37,11 @@ const SelectedTranscript = () => {
             </div>
           </div>
         ) : (
-          <div className="">
-            <div className="flex flex-col gap-2 relative">
-              {data?.data.data.transcript.map((item: TConversation, idx: number) => (
-                <Conversation item={item} key={item._id} chatId={item.title} i={idx} />
-              ))}
-            </div>
-          </div>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 1, position: "relative" }}>
+            {data?.data.data.transcript.map((item: TConversation, idx: number) => (
+              <Conversation item={item} key={item._id} chatId={item.title} i={idx} />
+            ))}
+          </Box>
         )}
       </div>
     </div>

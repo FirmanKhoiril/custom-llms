@@ -17,7 +17,6 @@ const StopAudio = () => {
       setConversationRecording((conver: any) => [...conver, data?.data?.createName?.content]);
       setSuccessRecommendation(true);
     },
-
     onError: () => {
       toast.error("Error Happens in Stop Audio");
     },

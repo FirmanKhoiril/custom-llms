@@ -1,7 +1,7 @@
 export type TData = {
   chatId: string;
   _id: string;
-  transcript: [TContent];
+  transcript: TConversation[];
 };
 export interface IData {
   data: {
