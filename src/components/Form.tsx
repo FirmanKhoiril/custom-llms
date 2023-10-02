@@ -11,7 +11,7 @@ const Form = () => {
   const { setUserInput, userInput, searchTranscript, setConversationRecording } = useContextState();
 
   function generateRandomId() {
-    const length = 8; // You can adjust the length of the random ID as needed
+    const length = 8;
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let randomId = "";
 

@@ -41,7 +41,8 @@ const ReloadChat = () => {
       <div className="max-h-[73vh] w-full overflow-y-auto scrollbar-none">
         {toogleAsistant ? (
           <div className="flex flex-col gap-4 w-full justify-between  max-h-[73vh]">
-            <MicAudio />
+            {!listening && <MicAudio />}
+
             <div className="px-4 flex w-full gap-3 items-end  rounded-lg mt-2  py-2 min-h-[80px] ">
               {transcript !== "" && (
                 <div className="flex gap-2 justify-between  i tems-center">
