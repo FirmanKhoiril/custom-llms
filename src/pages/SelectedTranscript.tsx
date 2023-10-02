@@ -27,7 +27,7 @@ const SelectedTranscript = () => {
   if (isError) toast.error("Dont have Conversation");
   return (
     <div>
-      <div className="max-h-[73vh] w-full overflow-y-auto scrollbar-none">
+      <div className="max-h-[88vh] w-full overflow-y-auto scrollbar-none">
         {toogleAsistant ? (
           <div className="flex flex-col gap-4 w-full justify-between  max-h-[73vh]">
             <div className="flex flex-col gap-2 relative">

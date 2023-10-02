@@ -64,13 +64,16 @@ const Conversation = () => {
         ) : (
           isSuccess && (
             <>
-              <h1 className=" pb-4 pt-6 text-xl font-bold ">Previous Chat</h1>
+              <h1 className=" pb-4 pt-6 text-xl font-bold tracking-tighter">Previous Chat</h1>
               {data?.data
                 .slice()
                 .reverse()
                 .map((transcript: TData) => (
                   <button
-                    className="px-4 py-4 w-full dark:text-white text-black dark:hover:bg-white/30 hover:bg-black/30 mb-4 flex flex-col rounded-xl bg-black/20 dark:bg-white/20 "
+                    type="button"
+                    name={`buttonSelected${transcript.chatId}`}
+                    aria-label={`buttonSelected${transcript.chatId}`}
+                    className="px-4 py-3   w-full dark:text-white text-black dark:hover:bg-white/30 hover:bg-black/30 mb-3 hover:drop-shadow-md flex flex-col rounded-xl bg-black/20 dark:bg-white/20 "
                     onClick={() => {
                       navigate(`/transcript/${transcript._id}`);
                     }}

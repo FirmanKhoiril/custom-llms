@@ -2,11 +2,11 @@ import { BsFillMicFill } from "react-icons/bs";
 import { IConversation } from "../types/Types";
 import { useContextState } from "../context/ContextProvider";
 import moment from "moment";
-import { CgArrowsExpandDownLeft } from "react-icons/cg";
+import { CgArrowsExpandDownLeft, CgArrowsExpandUpRight } from "react-icons/cg";
 import { Tooltip } from "@mui/material";
 
 const Conversation = ({ item, chatId, i }: IConversation) => {
-  const { conversationId, setConversationId } = useContextState();
+  const { conversationId, setConversationId, setToogleAsistant } = useContextState();
   let speech = new SpeechSynthesisUtterance();
   let voices = window.speechSynthesis.getVoices();
 
@@ -26,7 +26,7 @@ const Conversation = ({ item, chatId, i }: IConversation) => {
           </div>
           <p className="text-sm text-black/70 dark:text-white/70 text-[12px]">{moment(item.createdAt).format("LLL")}</p>
         </div>
-        {item.contentBot.role === "Leadership Copilot" && (
+        {conversationId === item._id ? (
           <Tooltip title="listening to Leadership Coach">
             <button
               name="buttonAddText"
@@ -38,21 +38,38 @@ const Conversation = ({ item, chatId, i }: IConversation) => {
               <BsFillMicFill size={20} />
             </button>
           </Tooltip>
+        ) : (
+          <Tooltip title="Expand Recommendation">
+            <button
+              onClick={() => {
+                setConversationId(item._id);
+                setToogleAsistant(false);
+              }}
+              type="button"
+              name="buttonExpand"
+              aria-label="buttonExpand"
+              className=""
+            >
+              <CgArrowsExpandUpRight size={25} />
+            </button>
+          </Tooltip>
         )}
       </div>
       {conversationId === item._id ? (
         <>
           <p className="pt-4 font-bold">Leadership Coach</p>
           <div className="flex justify-between">
-            <div className="text-black/90 flex p-4 flex-col gap-1 dark:text-white/90">
+            <div className="text-black/90 flex pl-4 py-3 flex-col gap-1 dark:text-white/90">
               <h1 className="font-semibold text-lg">Recommendation:</h1>
-              <p>{item.contentBot.content}</p>
+              <p className=" text-sm sm:text-base">{item.contentBot.content}</p>
             </div>
-            <Tooltip title="Close Conversation">
-              <button type="button" className="hover:opacity-80" onClick={() => setConversationId("")}>
-                <CgArrowsExpandDownLeft size={25} />
-              </button>
-            </Tooltip>
+            <div>
+              <Tooltip title="Close Recommendation">
+                <button type="button" className="hover:opacity-80 p-2 rounded-xl" onClick={() => setConversationId("")}>
+                  <CgArrowsExpandDownLeft size={25} />
+                </button>
+              </Tooltip>
+            </div>
           </div>
         </>
       ) : (

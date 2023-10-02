@@ -1,12 +1,11 @@
 import moment from "moment";
 import { IConversation } from "../types/Types";
 import { useContextState } from "../context/ContextProvider";
-import expandBlack from "../images/expandBlack.svg";
-import expand from "../images/expand.svg";
 import { Tooltip } from "@mui/material";
+import { CgArrowsExpandUpRight } from "react-icons/cg";
 
 const CardTranscript = ({ item, i }: IConversation) => {
-  const { conversationId, setConversationId, dark, setToogleAsistant } = useContextState();
+  const { conversationId, setConversationId, setToogleAsistant } = useContextState();
 
   return (
     <div className="w-full bg-black/10 dark:bg-white/10 rounded-lg py-4 px-6">
@@ -15,7 +14,7 @@ const CardTranscript = ({ item, i }: IConversation) => {
           <h1 className="font-bold">Recording {i + 1}</h1>
           <p className="text-sm text-black/70 dark:text-white/70">{moment(item.createdAt).format("LLL")}</p>
         </div>
-        <Tooltip title="Expand Conversation">
+        <Tooltip title="Expand Recommendation">
           <button
             onClick={() => {
               setConversationId(item._id);
@@ -26,7 +25,7 @@ const CardTranscript = ({ item, i }: IConversation) => {
             aria-label="buttonExpand"
             className=""
           >
-            <img src={dark ? expandBlack : expand} alt="Expand Icon" height={25} width={25} />
+            <CgArrowsExpandUpRight size={25} />
           </button>
         </Tooltip>
       </div>

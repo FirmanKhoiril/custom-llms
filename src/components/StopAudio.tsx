@@ -39,8 +39,9 @@ const StopAudio = () => {
     >
       <Timer />
       <Waves />
+
       <button type="button" onClick={handleStopVoiceRecognition} className="flex justify-around text-white items-center gap-4 py-2 px-4 md:px-6 rounded-xl bg-secondary hover:bg-hoverSecondary">
-        <span className=" h-[10px] sm:h-[14px] w-[10px] sm:w-[14px] rounded-sm bg-green-500"></span>
+        <span className=" h-[10px] sm:h-[14px] w-[10px] sm:w-[14px] rounded-sm bg-white"></span>
         <p className="text-sm sm:text-base tracking-tight">Stop Recording</p>
       </button>
     </div>
