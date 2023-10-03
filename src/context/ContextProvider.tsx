@@ -13,12 +13,16 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
   const [seconds, setSeconds] = useState(0);
   const [conversationId, setConversationId] = useState("");
   const [successRecommendation, setSuccessRecommendation] = useState(false);
+  const [meetingId, setMeetingId] = useState(null);
+  const [joined, setJoined] = useState(null);
 
   const values = useMemo(
     () => ({
       dark,
       minutes,
       conversationRecording,
+      meetingId,
+      setMeetingId,
       setConversationRecording,
       setMinutes,
       seconds,
@@ -36,9 +40,15 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
       setToogleAsistant,
       conversationId,
       setConversationId,
+      joined,
+      setJoined,
     }),
     [
       searchTranscript,
+      joined,
+      setJoined,
+      meetingId,
+      setMeetingId,
       conversationId,
       successRecommendation,
       setSuccessRecommendation,

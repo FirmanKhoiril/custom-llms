@@ -9,3 +9,4 @@ export { default as StopAudio } from "./StopAudio";
 export { default as Waves } from "./Waves";
 export { default as Timer } from "./Timer";
 export { default as CardTranscript } from "./CardTranscript";
+export { default as VideoMeeting } from "./VideoMeeting";

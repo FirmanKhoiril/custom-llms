@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { CardTranscript, Conversation, Form, MicAudio, StopAudio } from "../components";
+import { CardTranscript, Conversation, Form, MicAudio, StopAudio, VideoMeeting } from "../components";
 import { TContent, TConversation } from "../types/Types";
 import { useContextState } from "../context/ContextProvider";
 import { Box } from "@mui/material";
@@ -41,6 +41,7 @@ const ReloadChat = () => {
       <div className="max-h-[73vh] w-full overflow-y-auto scrollbar-none">
         {toogleAsistant ? (
           <div className="flex flex-col gap-4 w-full justify-between  max-h-[73vh]">
+            <VideoMeeting />
             {!listening && <MicAudio />}
 
             <div className="px-4 flex w-full gap-3 items-end  rounded-lg mt-2  py-2 min-h-[80px] ">
