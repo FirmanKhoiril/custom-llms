@@ -73,7 +73,7 @@ const Conversation = () => {
                     type="button"
                     name={`buttonSelected${transcript.chatId}`}
                     aria-label={`buttonSelected${transcript.chatId}`}
-                    className="px-4 py-3   w-full dark:text-white text-black dark:hover:bg-white/30 hover:bg-black/30 mb-3 hover:drop-shadow-md flex flex-col rounded-xl bg-black/20 dark:bg-white/20 "
+                    className="px-4 py-3   w-full dark:text-white text-black dark:hover:bg-white/10 hover:bg-black/10 mb-3 hover:drop-shadow-md flex flex-col rounded-xl bg-black/5 dark:bg-white/5 "
                     onClick={() => {
                       navigate(`/transcript/${transcript._id}`);
                     }}
