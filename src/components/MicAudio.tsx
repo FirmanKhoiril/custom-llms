@@ -8,7 +8,7 @@ const MicAudio = () => {
 
   if (!browserSupportsSpeechRecognition) {
     return (
-      <div className="flex flex-col items-center bg-black/10 dark:bg-white/10 py-2 px-4 gap-2">
+      <div className="flex flex-col items-center bg-black/10 rounded-xl dark:bg-white/10 py-6 px-4 gap-2">
         <PiSpeakerSlashBold size={25} />
         <span className="text-black/70 dark:text-white/70">Browser Doesn't Support Speech Recognition</span>
       </div>

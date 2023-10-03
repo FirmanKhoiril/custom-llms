@@ -61,7 +61,7 @@ function ParticipantView({ participantId }: { participantId: string }) {
   }, [micStream, micOn]);
 
   return (
-    <div key={participantId}>
+    <div key={participantId} className="flex flex-col gap-2 ">
       <p>
         Participant: {displayName} | Webcam: {webcamOn ? "ON" : "OFF"} | Mic: {micOn ? "ON" : "OFF"}
       </p>
@@ -92,13 +92,25 @@ function Controls() {
   const { leave, toggleMic, toggleWebcam } = useMeeting();
   return (
     <div className="flex gap-4 py-4 items-center flex-wrap">
-      <button type="button" className="py-2 px-4 bg-red-500" name="buttonMeetingLeave" aria-label="buttonMeetingLeave" onClick={() => leave()}>
+      <button type="button" className="py-2 hover:bg-red-600 rounded-lg drop-shadow-md px-4 bg-red-500" name="buttonMeetingLeave" aria-label="buttonMeetingLeave" onClick={() => leave()}>
         Leave Meeting
       </button>
-      <button type="button" className="py-2 px-4 border hover:bg-primary border-violet-500 hover:border-transparent" name="buttonMeetingMic" aria-label="buttonMeetingMic" onClick={() => toggleMic()}>
+      <button
+        type="button"
+        className="py-2 hover:text-white rounded-lg drop-shadow-md px-4 border hover:bg-primary border-violet-500 hover:border-transparent"
+        name="buttonMeetingMic"
+        aria-label="buttonMeetingMic"
+        onClick={() => toggleMic()}
+      >
         toggleMic
       </button>
-      <button type="button" className="py-2 px-4 border border-transparent hover:border-violet-500 bg-primary hover:bg-transparent" name="buttonMeetingWebcam" aria-label="buttonMeetingWebcam" onClick={() => toggleWebcam()}>
+      <button
+        type="button"
+        className="py-2 rounded-lg text-white hover:text-black drop-shadow-md px-4 border border-transparent hover:border-violet-500 bg-primary hover:bg-transparent"
+        name="buttonMeetingWebcam"
+        aria-label="buttonMeetingWebcam"
+        onClick={() => toggleWebcam()}
+      >
         toggleWebcam
       </button>
     </div>
@@ -148,7 +160,9 @@ export function MeetingView({ onMeetingLeave, meetingId }: { onMeetingLeave: () 
       ) : joined && joined == "JOINING" ? (
         <p>Joining the meeting...</p>
       ) : (
-        <button onClick={joinMeeting}>Join</button>
+        <button type="button" className="bg-primary hover:bg-hoverPrimary py-2 px-4 rounded-xl mt-2 drop-shadow-md" name="buttonJoinMeeting" aria-label="buttonJoinMeeting" onClick={joinMeeting}>
+          Join
+        </button>
       )}
     </div>
   );
