@@ -8,21 +8,18 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
   const [conversationRecording, setConversationRecording] = useState([]);
   const [toogleAsistant, setToogleAsistant] = useState(false);
   const [transcriptName, setTranscriptName] = useState("");
-  const [searchTranscript, setSearchTranscript] = useState("");
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(0);
-  const [conversationId, setConversationId] = useState("");
-  const [successRecommendation, setSuccessRecommendation] = useState(false);
-  const [meetingId, setMeetingId] = useState(null);
-  const [joined, setJoined] = useState(null);
-
+  const [searchTranscript, setSearchTranscript] = useState<string>("");
+  const [minutes, setMinutes] = useState<number>(0);
+  const [seconds, setSeconds] = useState<number>(0);
+  const [conversationId, setConversationId] = useState<string>();
+  const [successRecommendation, setSuccessRecommendation] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>("");
   const values = useMemo(
     () => ({
       dark,
       minutes,
       conversationRecording,
-      meetingId,
-      setMeetingId,
+
       setConversationRecording,
       setMinutes,
       seconds,
@@ -40,15 +37,13 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
       setToogleAsistant,
       conversationId,
       setConversationId,
-      joined,
-      setJoined,
+      username,
+      setUsername,
     }),
     [
       searchTranscript,
-      joined,
-      setJoined,
-      meetingId,
-      setMeetingId,
+      username,
+      setUsername,
       conversationId,
       successRecommendation,
       setSuccessRecommendation,

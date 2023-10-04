@@ -6,6 +6,7 @@ import { useContextState } from "../context/ContextProvider";
 import { useMutation } from "react-query";
 import { toast } from "sonner";
 import { Type } from "../types/Types";
+import { Box } from "@mui/material";
 
 const StopAudio = () => {
   const { setSeconds, setMinutes, setSuccessRecommendation, setConversationRecording, searchTranscript } = useContextState();
@@ -33,18 +34,20 @@ const StopAudio = () => {
   };
 
   return (
-    <div
-      className="
-    flex w-full justify-between py-6 items-center"
-    >
+    <Box sx={{ display: "flex", width: "100%", justifyContent: "space-between", alignItems: "center", py: 3 }}>
       <Timer />
       <Waves />
-
-      <button type="button" onClick={handleStopVoiceRecognition} className="flex justify-around text-white items-center gap-4 py-2 px-4 md:px-6 rounded-xl bg-secondary hover:bg-hoverSecondary">
+      <button
+        type="button"
+        name="buttonStopRecording"
+        aria-label="buttonStopRecording"
+        onClick={handleStopVoiceRecognition}
+        className="flex justify-around text-white items-center gap-4 py-2 px-4 md:px-6 rounded-xl bg-secondary hover:bg-hoverSecondary"
+      >
         <span className=" h-[10px] sm:h-[14px] w-[10px] sm:w-[14px] rounded-sm bg-white"></span>
         <p className="text-sm sm:text-base tracking-tight">Stop Recording</p>
       </button>
-    </div>
+    </Box>
   );
 };
 

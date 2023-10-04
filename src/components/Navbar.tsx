@@ -22,7 +22,7 @@ const Navbar = () => {
           name="toogleDarkMode"
           aria-label="toogleDarkMode"
           onClick={() => setDark(!dark)}
-          className="border dark:hover:bg-white/10 text-sm dark:border-zinc-600 dark:hover:border-zinc-400 rounded-lg text-[16px] md:text-[20px]  p-1.5 md:p-2.5 border-black/40 hover:border-black/20 hover:bg-black/10"
+          className="border dark:hover:bg-white/10  dark:border-zinc-600 dark:hover:border-zinc-400 rounded-lg text-[1p8x] md:text-[20px]  p-2.5 md:p-3 border-black/40 hover:border-black/20 hover:bg-black/10"
         >
           {dark ? <BsFillSunFill /> : <MdDarkMode />}
         </button>

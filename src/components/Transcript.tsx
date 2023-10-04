@@ -9,7 +9,7 @@ import moment from "moment";
 
 const Conversation = () => {
   const navigate = useNavigate();
-  const { setSearchTranscript, searchTranscript, setToogleAsistant } = useContextState();
+  const { setSearchTranscript, searchTranscript, username, setUsername, setToogleAsistant } = useContextState();
   const { data, isLoading, isError, isFetching, isSuccess } = useQuery(["getTranscript"], getTranscript, {
     refetchOnWindowFocus: false,
   });
@@ -38,14 +38,22 @@ const Conversation = () => {
   return (
     <div className=" flex pr-2 flex-col min-h-[73vh] gap-3">
       <div className="flex w-full gap-2">
-        <form onSubmit={handleSubmit} className="relative w-full">
+        <form onSubmit={handleSubmit} className="relative w-full flex flex-col gap-3.5">
           <input
             required
-            className="rounded-xl resize-none bg-black/10 dark:bg-white/10 outline-none border border-transparent placeholder:text-black/60 dark:placeholder:text-white/60 tracking-tight focus:border-violet-600 px-4 py-5 w-full"
+            className="rounded-xl resize-none bg-black/5 dark:bg-white/10 outline-none border border-violet-600/20 placeholder:text-black/60 shadow-sm dark:placeholder:text-white/60 tracking-tight focus:border-violet-600 px-4 py-5 w-full"
             type="text"
             value={searchTranscript}
-            placeholder="Make new conversation"
+            placeholder="Make new group conversation"
             onChange={(e) => setSearchTranscript(e.target.value)}
+          />
+          <input
+            required
+            className="rounded-xl resize-none bg-black/5 dark:bg-white/10 outline-none border border-violet-600/20 placeholder:text-black/60 shadow-sm dark:placeholder:text-white/60 tracking-tight focus:border-violet-600 px-4 py-5 w-full"
+            type="text"
+            value={username}
+            placeholder="Your username"
+            onChange={(e) => setUsername(e.target.value)}
           />
         </form>
       </div>
@@ -64,7 +72,7 @@ const Conversation = () => {
         ) : (
           isSuccess && (
             <>
-              <h1 className=" pb-4 pt-6 text-xl font-bold tracking-tighter">Previous Chat</h1>
+              <h1 className=" pb-4 pt-6 text-2xl font-bold tracking-tighter">Previous Chat</h1>
               {data?.data
                 .slice()
                 .reverse()
@@ -73,7 +81,7 @@ const Conversation = () => {
                     type="button"
                     name={`buttonSelected${transcript.chatId}`}
                     aria-label={`buttonSelected${transcript.chatId}`}
-                    className="px-4 py-3   w-full dark:text-white text-black dark:hover:bg-white/10 hover:bg-black/10 mb-3 hover:drop-shadow-md flex flex-col rounded-xl bg-black/5 dark:bg-white/5 "
+                    className="px-4 py-3 w-full dark:text-white text-black/90 dark:hover:bg-white/10 hover:bg-black/10 mb-3 border border-black/20 dark:border-white/20 hover:drop-shadow-md items-start shadow-sm flex flex-col rounded-xl"
                     onClick={() => {
                       navigate(`/transcript/${transcript._id}`);
                     }}

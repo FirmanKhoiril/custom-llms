@@ -6,22 +6,10 @@ import { Response } from "../api/fetchResponse";
 import { useMutation } from "react-query";
 import { toast } from "sonner";
 import { Loading } from ".";
+import { generateRandomId } from "../hooks/generateRandomId";
 
 const Form = () => {
   const { setUserInput, userInput, searchTranscript, setConversationRecording } = useContextState();
-
-  function generateRandomId() {
-    const length = 8;
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let randomId = "";
-
-    for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      randomId += characters.charAt(randomIndex);
-    }
-
-    return randomId;
-  }
 
   const randomId = generateRandomId();
 
@@ -58,7 +46,11 @@ const Form = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement> | React.ButtonHTMLAttributes<HTMLButtonElement> | any) => {
     e.preventDefault();
-    postQuestion(userInput);
+    if (userInput === "") {
+      toast.error("Input has to be required");
+    } else {
+      postQuestion(userInput);
+    }
   };
 
   if (isError) {

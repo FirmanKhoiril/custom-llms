@@ -4,7 +4,7 @@ const ToogleAssistant = () => {
   const { setToogleAsistant, toogleAsistant } = useContextState();
 
   return (
-    <div className="flex gap-2.5 sm:gap-4 text-[12px] items-center">
+    <div className="flex gap-2 sm:gap-4 text-[14px] items-center">
       <button
         disabled={toogleAsistant}
         type="button"
