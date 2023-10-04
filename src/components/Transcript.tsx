@@ -1,18 +1,16 @@
-import { useQuery } from "react-query";
-import { getTranscript } from "../api/fetchResponse";
 import { useNavigate } from "react-router-dom";
 import { useContextState } from "../context/ContextProvider";
 import { toast } from "sonner";
 import { Loading } from ".";
 import { TData } from "../types/Types";
 import moment from "moment";
+import { useGetAllTranscript } from "../hooks/useGetAllTranscript";
 
 const Conversation = () => {
   const navigate = useNavigate();
   const { setSearchTranscript, searchTranscript, username, setUsername, setToogleAsistant } = useContextState();
-  const { data, isLoading, isError, isFetching, isSuccess } = useQuery(["getTranscript"], getTranscript, {
-    refetchOnWindowFocus: false,
-  });
+
+  const { data, isError, isFetching, isLoading, isSuccess } = useGetAllTranscript();
 
   const handleLoadSelectedName = () => {
     if (searchTranscript.length !== 0) {

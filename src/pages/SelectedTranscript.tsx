@@ -1,22 +1,19 @@
-import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
-import { getTranscriptById } from "../api/fetchResponse";
 import { useContextState } from "../context/ContextProvider";
 import { TConversation } from "../types/Types";
 import { CardTranscript, Conversation, Loading } from "../components";
 import { toast } from "sonner";
 import { Box } from "@mui/material";
+import { useGetTranscriptById } from "../hooks/useGetTranscriptId";
 
 const SelectedTranscript = () => {
   const { id } = useParams();
   const { toogleAsistant } = useContextState();
   const navigate = useNavigate();
 
-  const { data, isLoading, isFetching, isError, isSuccess } = useQuery(["getTranscriptById", id], () => getTranscriptById(id), {
-    refetchOnWindowFocus: false,
-  });
+  const { data, isLoading, isError, isFetching, isSuccess } = useGetTranscriptById(id);
 
-  if (!id) {
+  if (id === "") {
     navigate("/", {
       replace: true,
     });
