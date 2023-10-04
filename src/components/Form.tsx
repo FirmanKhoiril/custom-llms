@@ -80,7 +80,7 @@ const Form = () => {
         required
         className=" rounded-xl resize-none bg-black/10 dark:bg-white/10 outline-none border border-transparent placeholder:text-black/60 dark:placeholder:text-white/60 tracking-tight focus:border-violet-600 pl-10 pr-32 py-5 w-full"
       />
-      <button onClick={handleSubmit} className={` absolute  p-2.5 text-violet-500 rounded-xl drop-shadow-md hover:text-violet-600 top-2.5 right-2`} name="message" aria-label="message" type="button">
+      <button onClick={handleSubmit} className={` absolute  p-2.5 text-violet-400 rounded-xl drop-shadow-md hover:text-violet-500 top-2.5 right-2`} name="message" aria-label="message" type="button">
         {isSuccess ? <HiMiniPaperAirplane size={25} /> : loader}
       </button>
     </form>
