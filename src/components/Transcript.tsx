@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { getTranscript } from "../api/fetchResponse";
 import { useNavigate } from "react-router-dom";
 import { useContextState } from "../context/ContextProvider";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { Loading } from ".";
 import { TData } from "../types/Types";
 import moment from "moment";

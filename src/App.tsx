@@ -3,7 +3,7 @@ import "./App.css";
 import { Navbar } from "./components";
 import { useContextState } from "./context/ContextProvider";
 import { Container } from "@mui/material";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "sonner";
 import { ReloadChat, Home, SelectedTranscript } from "./pages";
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
   return (
     <div className={`${dark ? "light" : "dark"} `}>
       <main className="dark:bg-dark dark:text-white w-full  min-h-screen bg-light">
-        <Toaster position="top-center" />
+        <Toaster position="top-center" richColors theme={dark ? "light" : "dark"} />
         <Container>
           <Navbar />
           <Routes>

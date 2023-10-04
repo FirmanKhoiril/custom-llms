@@ -4,7 +4,7 @@ import { getTranscriptById } from "../api/fetchResponse";
 import { useContextState } from "../context/ContextProvider";
 import { TConversation } from "../types/Types";
 import { CardTranscript, Conversation, Loading } from "../components";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { Box } from "@mui/material";
 
 const SelectedTranscript = () => {

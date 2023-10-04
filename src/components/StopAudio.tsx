@@ -4,7 +4,7 @@ import { Timer, Waves } from ".";
 import { RecommendedResponse } from "../api/fetchResponse";
 import { useContextState } from "../context/ContextProvider";
 import { useMutation } from "react-query";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { Type } from "../types/Types";
 
 const StopAudio = () => {

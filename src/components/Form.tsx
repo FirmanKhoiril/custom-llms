@@ -4,7 +4,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { useContextState } from "../context/ContextProvider";
 import { Response } from "../api/fetchResponse";
 import { useMutation } from "react-query";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { Loading } from ".";
 
 const Form = () => {
