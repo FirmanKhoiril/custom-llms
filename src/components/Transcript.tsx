@@ -8,7 +8,7 @@ import { useGetAllTranscript } from "../hooks/useGetAllTranscript";
 
 import { io } from "socket.io-client";
 
-export const socket = io("http://localhost:5000");
+export const socket = io("https://server-llms-app.cyclic.cloud/");
 
 const Conversation = () => {
   const navigate = useNavigate();
