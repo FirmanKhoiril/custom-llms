@@ -1,7 +1,7 @@
 import "regenerator-runtime/runtime";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { Timer, Waves } from ".";
-import { RecommendedResponse } from "../api/fetchResponse";
+import { RecommendedResponse, server } from "../api/fetchResponse";
 import { useContextState } from "../context/ContextProvider";
 import { useMutation } from "react-query";
 import { toast } from "sonner";
@@ -10,7 +10,7 @@ import { Box } from "@mui/material";
 import { useEffect } from "react";
 import { io } from "socket.io-client";
 
-const socket = io("https://server-llms-app.cyclic.cloud");
+const socket = io(server);
 
 const StopAudio = () => {
   const { setSeconds, setMinutes, setConversationRecording, setSuccessRecommendation, searchTranscript, username, conversationRecording } = useContextState();

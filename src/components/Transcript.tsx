@@ -5,10 +5,10 @@ import { Loading } from ".";
 import { TData } from "../types/Types";
 import moment from "moment";
 import { useGetAllTranscript } from "../hooks/useGetAllTranscript";
-
 import { io } from "socket.io-client";
+import { server } from "../api/fetchResponse";
 
-const socket = io("https://server-llms-app.cyclic.cloud");
+const socket = io(server);
 
 const Conversation = () => {
   const navigate = useNavigate();
