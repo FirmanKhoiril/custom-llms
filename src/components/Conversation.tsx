@@ -5,7 +5,7 @@ import moment from "moment";
 import { CgArrowsExpandDownLeft, CgArrowsExpandUpRight } from "react-icons/cg";
 import { Tooltip } from "@mui/material";
 
-const Conversation = ({ item, chatId, i }: IConversation) => {
+const Conversation = ({ item, i }: IConversation) => {
   const { conversationId, setConversationId, setToogleAsistant } = useContextState();
   let speech = new SpeechSynthesisUtterance();
   let voices = window.speechSynthesis.getVoices();
@@ -22,7 +22,7 @@ const Conversation = ({ item, chatId, i }: IConversation) => {
       <div className="flex items-center justify-between gap-2">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
-            <h1 className={`${item.contentBot.role === "user" ? "text-violet-500" : ""} capitalize text-sm font-bold `}>{conversationId === item._id ? `Recommendations from your call with ${chatId}` : `Recommendations ${i + 1}`}</h1>
+            <h1 className={`${item.contentBot.role === "user" ? "text-violet-500" : ""} capitalize text-sm font-bold `}>{conversationId === item._id ? `Recommendations from your call with ${item.title}` : `Recommendations ${i + 1}`}</h1>
           </div>
           <p className="text-sm text-black/70 dark:text-white/70 text-[12px]">{moment(item.createdAt).format("LLL")}</p>
         </div>

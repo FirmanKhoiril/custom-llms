@@ -7,30 +7,53 @@ import { useMutation } from "react-query";
 import { toast } from "sonner";
 import { Type } from "../types/Types";
 import { Box } from "@mui/material";
+import { socket } from "./Transcript";
+import { useEffect } from "react";
 
 const StopAudio = () => {
-  const { setSeconds, setMinutes, setSuccessRecommendation, setConversationRecording, searchTranscript } = useContextState();
+  const { setSeconds, setMinutes, setConversationRecording, setSuccessRecommendation, searchTranscript, username, conversationRecording } = useContextState();
+
   const { finalTranscript, resetTranscript } = useSpeechRecognition();
 
-  const { mutate: getRecommended } = useMutation({
+  const { mutate: getRecommended, isSuccess } = useMutation({
     mutationFn: ({ input, title }: Type) => RecommendedResponse({ input, title }),
     onSuccess: (data) => {
-      setConversationRecording((conver: any) => [...conver, data?.data?.createName?.content]);
-      setSuccessRecommendation(true);
+      if (finalTranscript !== "") {
+        const newMessage = {
+          room: searchTranscript,
+          content: data.data.createName.content,
+        };
+        socket.emit("send_message", newMessage);
+        setConversationRecording((conver: any) => [...conver, data.data.createName.content]);
+        console.log(conversationRecording);
+      }
     },
     onError: () => {
       toast.error("Error Happens in Stop Audio");
     },
   });
 
+  useEffect(() => {
+    socket.on("receive_message", (dataContent: any) => {
+      setConversationRecording((conver: any) => [...conver, dataContent]);
+      setSuccessRecommendation(true);
+    });
+    console.log(conversationRecording);
+  }, [socket, conversationRecording, isSuccess, searchTranscript]);
+
   const handleStopVoiceRecognition = () => {
     SpeechRecognition.stopListening();
-    if (finalTranscript === "") return toast.error("You Must Speaking to get the Answer ");
-    getRecommended({ input: finalTranscript, title: searchTranscript });
-    resetTranscript();
-    setSuccessRecommendation(true);
-    setSeconds(0);
-    setMinutes(0);
+    setSuccessRecommendation(false);
+    if (finalTranscript === "") {
+      toast.error("You Must Speaking to get the Answer ");
+      setSeconds(0);
+      setMinutes(0);
+    } else {
+      getRecommended({ input: finalTranscript, title: username });
+      resetTranscript();
+      setSeconds(0);
+      setMinutes(0);
+    }
   };
 
   return (
