@@ -1,47 +1,27 @@
 import "regenerator-runtime/runtime";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { Timer, Waves } from ".";
-import { RecommendedResponse, server } from "../api/fetchResponse";
+import { RecommendedResponse } from "../api/fetchResponse";
 import { useContextState } from "../context/ContextProvider";
 import { useMutation } from "react-query";
 import { toast } from "sonner";
 import { Type } from "../types/Types";
 import { Box } from "@mui/material";
-import { useEffect } from "react";
-import { io } from "socket.io-client";
-
-const socket = io(server);
 
 const StopAudio = () => {
-  const { setSeconds, setMinutes, setConversationRecording, setSuccessRecommendation, searchTranscript, username, conversationRecording } = useContextState();
+  const { setSeconds, setMinutes, setConversationRecording, setSuccessRecommendation, username } = useContextState();
 
   const { finalTranscript, resetTranscript } = useSpeechRecognition();
 
-  const { mutate: getRecommended, isSuccess } = useMutation({
+  const { mutate: getRecommended } = useMutation({
     mutationFn: ({ input, title }: Type) => RecommendedResponse({ input, title }),
     onSuccess: (data) => {
-      if (finalTranscript !== "") {
-        const newMessage = {
-          room: searchTranscript,
-          content: data.data.createName.content,
-        };
-        socket.emit("send_message", newMessage);
-        setConversationRecording((conver: any) => [...conver, data.data.createName.content]);
-        console.log(conversationRecording);
-      }
+      setConversationRecording((conver: any) => [...conver, data.data.createName.content]);
     },
     onError: () => {
       toast.error("Error Happens in Stop Audio");
     },
   });
-
-  useEffect(() => {
-    socket.on("receive_message", (dataContent: any) => {
-      setConversationRecording((conver: any) => [...conver, dataContent]);
-      setSuccessRecommendation(true);
-    });
-    console.log(conversationRecording);
-  }, [socket, conversationRecording, isSuccess, searchTranscript]);
 
   const handleStopVoiceRecognition = () => {
     SpeechRecognition.stopListening();

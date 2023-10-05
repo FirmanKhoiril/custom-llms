@@ -3,7 +3,7 @@ import { TContent, Type } from "../types/Types";
 
 export const server = "https://server-llms-app.cyclic.cloud";
 
-// const local = "http://localhost:5000";
+export const local = "http://localhost:5000";
 const api = axios.create({
   baseURL: server,
 });

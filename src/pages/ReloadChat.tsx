@@ -43,7 +43,7 @@ const ReloadChat = () => {
           <div className="flex flex-col gap-4 w-full justify-between  max-h-[85vh]">
             {!listening && <MicAudio />}
 
-            <div className="px-4 flex w-full gap-3 items-end  rounded-lg mt-2  py-2 min-h-[85vh] ">
+            <div className="px-4 flex w-full gap-3 items-end  rounded-lg mt-2  py-2 min-h-[85px] ">
               {transcript !== "" && (
                 <div className="flex gap-2 justify-between">
                   <div className="flex flex-col gap-2">

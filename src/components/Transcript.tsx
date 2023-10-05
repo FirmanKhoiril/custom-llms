@@ -5,10 +5,6 @@ import { Loading } from ".";
 import { TData } from "../types/Types";
 import moment from "moment";
 import { useGetAllTranscript } from "../hooks/useGetAllTranscript";
-import { io } from "socket.io-client";
-import { server } from "../api/fetchResponse";
-
-const socket = io(server);
 
 const Conversation = () => {
   const navigate = useNavigate();
@@ -17,8 +13,7 @@ const Conversation = () => {
   const { data, isError, isFetching, isLoading, isSuccess } = useGetAllTranscript();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    if (username !== "" && searchTranscript !== "" && socket.connected) {
-      socket.emit("join_room", searchTranscript);
+    if (username !== "" && searchTranscript !== "") {
       e.preventDefault();
       navigate(`/chat/${searchTranscript}`);
       toast.success(` ${username} Join  group   ${searchTranscript} `);
