@@ -17,6 +17,7 @@ const StopAudio = () => {
     mutationFn: ({ input, title }: Type) => RecommendedResponse({ input, title }),
     onSuccess: (data) => {
       setConversationRecording((conver: any) => [...conver, data.data.createName.content]);
+      setSuccessRecommendation(true);
     },
     onError: () => {
       toast.error("Error Happens in Stop Audio");
