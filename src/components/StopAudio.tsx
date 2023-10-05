@@ -7,8 +7,10 @@ import { useMutation } from "react-query";
 import { toast } from "sonner";
 import { Type } from "../types/Types";
 import { Box } from "@mui/material";
-import { socket } from "./Transcript";
 import { useEffect } from "react";
+import { io } from "socket.io-client";
+
+const socket = io("https://server-llms-app.cyclic.cloud");
 
 const StopAudio = () => {
   const { setSeconds, setMinutes, setConversationRecording, setSuccessRecommendation, searchTranscript, username, conversationRecording } = useContextState();
