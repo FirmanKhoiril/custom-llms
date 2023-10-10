@@ -2,9 +2,12 @@ import "regenerator-runtime/runtime";
 import { BsFillMicFill } from "react-icons/bs";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { PiSpeakerSlashBold } from "react-icons/pi";
+import { useContextState } from "../context/ContextProvider";
+import { toast } from "sonner";
 
 const MicAudio = () => {
   const { listening, browserSupportsSpeechRecognition } = useSpeechRecognition();
+  const { setAudioUrl } = useContextState();
 
   if (!browserSupportsSpeechRecognition) {
     return (
@@ -16,7 +19,35 @@ const MicAudio = () => {
   }
 
   const handleStartVoiceRecognition = () => {
-    SpeechRecognition.startListening({ continuous: true, language: "en-US" });
+    let mediaRecorder: any;
+    let chunks: any = [];
+
+    if (navigator.mediaDevices?.getUserMedia) {
+      console.log("mediaDevices supported..");
+      SpeechRecognition.startListening({ continuous: true });
+
+      navigator.mediaDevices
+        .getUserMedia({
+          audio: true,
+        })
+        .then((stream) => {
+          mediaRecorder = new MediaRecorder(stream);
+
+          mediaRecorder.ondataavailable = (e: any) => {
+            chunks.push(e.data);
+          };
+
+          mediaRecorder.onstop = () => {
+            const blob = new Blob(chunks, { type: "audio/webm; codecs=opus" });
+            const audioURL = window.URL.createObjectURL(blob);
+            setAudioUrl(audioURL);
+          };
+        })
+        .catch((error) => {
+          toast.error("Error to push voiceAudioUrl ");
+          throw new Error(error);
+        });
+    }
   };
 
   return (
@@ -26,7 +57,7 @@ const MicAudio = () => {
         onClick={handleStartVoiceRecognition}
         name="buttonMic"
         aria-label="buttonMicOn"
-        className="p-5 mt-4 bg-gradient-to-r from-blue-600 via-blue-400 to-blue-500 hover:from-blue-500 hover:via-blue-300 hover:to-blue-400 text-white drop-shadow-lg rounded-full"
+        className="p-5 mt-4 bg-gradient-to-r from-blue-600 via-blue-500/80 to-blue-500 hover:from-blue-500 hover:via-blue-400/80 hover:to-blue-400 text-white drop-shadow-lg rounded-full"
       >
         <BsFillMicFill size={25} />
       </button>

@@ -23,7 +23,6 @@ const CardTranscript = ({ item }: IConversation) => {
             type="button"
             name="buttonExpand"
             aria-label="buttonExpand"
-            className=""
           >
             <CgArrowsExpandUpRight size={25} />
           </button>

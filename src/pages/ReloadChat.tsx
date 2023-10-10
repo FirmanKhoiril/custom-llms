@@ -23,17 +23,17 @@ const ReloadChat = () => {
     },
   });
 
-  if (!chatId) {
-    navigate("/", {
-      replace: true,
-    });
-  }
+  useEffect(() => {
+    if (!chatId) {
+      navigate("/", {
+        replace: true,
+      });
+    }
+  }, [chatId, navigate]);
 
   useEffect(() => {
-    if (successRecommendation) {
-      postConversation({ transcript: conversationRecording, chatId });
-      setSuccessRecommendation(false);
-    }
+    postConversation({ transcript: conversationRecording, chatId });
+    setSuccessRecommendation(false);
   }, [successRecommendation, conversationRecording, chatId, setSuccessRecommendation]);
 
   return (

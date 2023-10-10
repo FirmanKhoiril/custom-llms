@@ -72,7 +72,7 @@ const Conversation = () => {
                     key={transcript._id}
                   >
                     <p className="text-lg font-bold"> {transcript.chatId}</p>
-                    <span className="text-sm text-black/70 dark:text-white/60 tracking-tight">{moment(transcript?.transcript[0]?.createdAt).fromNow()}</span>
+                    <span className="text-sm text-black/70 dark:text-white/60 tracking-tight">{moment(transcript?.transcript[0]?.createdAt).format("LLL")}</span>
                   </button>
                 ))}
             </>

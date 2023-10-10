@@ -48,7 +48,6 @@ const Conversation = ({ item, i }: IConversation) => {
               type="button"
               name="buttonExpand"
               aria-label="buttonExpand"
-              className=""
             >
               <CgArrowsExpandUpRight size={25} />
             </button>
@@ -65,7 +64,14 @@ const Conversation = ({ item, i }: IConversation) => {
             </div>
             <div>
               <Tooltip title="Close Recommendation">
-                <button type="button" className="hover:opacity-80 p-2 rounded-xl" onClick={() => setConversationId("")}>
+                <button
+                  type="button"
+                  className="hover:opacity-80 p-2 rounded-xl"
+                  onClick={() => {
+                    setConversationId("");
+                    setToogleAsistant(true);
+                  }}
+                >
                   <CgArrowsExpandDownLeft size={25} />
                 </button>
               </Tooltip>

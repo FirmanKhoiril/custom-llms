@@ -15,15 +15,15 @@ const StopAudio = () => {
 
   const { mutate: getRecommended } = useMutation({
     mutationFn: ({ input, title }: Type) => RecommendedResponse({ input, title }),
+
     onSuccess: (data) => {
       setConversationRecording((conver: any) => [...conver, data.data.createName.content]);
       setSuccessRecommendation(true);
     },
     onError: () => {
-      toast.error("Error Happens in Stop Audio");
+      toast.error("Somethings went wrong");
     },
   });
-
   const handleStopVoiceRecognition = () => {
     SpeechRecognition.stopListening();
     setSuccessRecommendation(false);
@@ -38,7 +38,6 @@ const StopAudio = () => {
       setMinutes(0);
     }
   };
-
   return (
     <Box sx={{ display: "flex", width: "100%", justifyContent: "space-between", alignItems: "center", py: 3 }}>
       <Timer />
@@ -50,7 +49,7 @@ const StopAudio = () => {
         onClick={handleStopVoiceRecognition}
         className="flex justify-around text-white items-center gap-4 py-2 px-4 md:px-6 rounded-xl bg-secondary hover:bg-hoverSecondary"
       >
-        <span className=" h-[10px] sm:h-[14px] w-[10px] sm:w-[14px] rounded-sm bg-white"></span>
+        <span className=" h-[10px] sm:h-[12px] w-[10px] sm:w-[12px] rounded-sm bg-white"></span>
         <p className="text-sm sm:text-base tracking-tight">Stop Recording</p>
       </button>
     </Box>
