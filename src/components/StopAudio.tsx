@@ -7,10 +7,9 @@ import { useMutation } from "react-query";
 import { toast } from "sonner";
 import { Type } from "../types/Types";
 import { Box } from "@mui/material";
-import { useEffect } from "react";
 
 const StopAudio = ({ stopRecording, recordingBlob }: any) => {
-  const { setSeconds, setMinutes, setConversationRecording, setSuccessRecommendation, username, audioUrl, setAudioUrl } = useContextState();
+  const { setSeconds, setMinutes, setConversationRecording, setSuccessRecommendation, username } = useContextState();
 
   const { finalTranscript, resetTranscript } = useSpeechRecognition();
 
@@ -26,28 +25,20 @@ const StopAudio = ({ stopRecording, recordingBlob }: any) => {
     },
   });
 
-  useEffect(() => {
-    if (recordingBlob) {
-      const audioURL = URL.createObjectURL(recordingBlob);
-
-      setAudioUrl(audioURL);
-    } else {
-      toast.error("You must speaking to get the answer");
-    }
-  }, [recordingBlob]);
-
   const handleStopVoiceRecognition = () => {
     SpeechRecognition.stopListening();
     setSuccessRecommendation(false);
     stopRecording();
-    if (finalTranscript === "" && !recordingBlob) {
-      toast.error("You must speaking to get the answer");
-      setSeconds(0);
-      setMinutes(0);
-    } else {
+    if (finalTranscript !== "" && recordingBlob) {
+      const audioUrl = URL.createObjectURL(recordingBlob);
       getRecommended({ input: finalTranscript, title: username, audioUrl });
 
       resetTranscript();
+
+      setSeconds(0);
+      setMinutes(0);
+    } else {
+      toast.error("You must speaking to get the answer");
       setSeconds(0);
       setMinutes(0);
     }

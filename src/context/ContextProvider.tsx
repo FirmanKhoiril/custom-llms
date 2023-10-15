@@ -15,11 +15,18 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
   const [successRecommendation, setSuccessRecommendation] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
   const [audioUrl, setAudioUrl] = useState("");
+  const [voiceId, setVoiceId] = useState({
+    audioId: "",
+    audioUrl: "",
+  });
+
   const values = useMemo(
     () => ({
       dark,
       minutes,
       audioUrl,
+      voiceId,
+      setVoiceId,
       setAudioUrl,
       conversationRecording,
 
@@ -45,6 +52,8 @@ export const ContextProvider = ({ children }: { children: React.ReactNode }) => 
     }),
     [
       searchTranscript,
+      voiceId,
+      setVoiceId,
       username,
       audioUrl,
       setAudioUrl,

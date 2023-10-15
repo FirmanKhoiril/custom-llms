@@ -45,14 +45,14 @@ const Conversation = () => {
             placeholder="Your name"
             onChange={(e) => setUsername(e.target.value)}
           />
-          <button type="submit" name="handleSubmit" aria-label="handleSubmit" className="py-3.5 drop-shadow-md bg-secondary font-semibold tracking-tight rounded-xl hover:bg-hoverSecondary text-white">
+          <button type="submit" name="handleSubmit" aria-label="handleSubmit" className="py-3.5 drop-shadow-md bg-secondary font-semibold tracking-tight rounded-xl text-lg hover:bg-hoverSecondary text-white">
             Start Conversation
           </button>
         </form>
       </div>
       <div className="">
         {data?.data.length === 0 ? (
-          <div className="bg-black/5 outline-none w-full dark:bg-white/5  py-4 px-2 rounded-xl truncate">There's no transcript save.</div>
+          <div className=" outline-none w-full text-center  py-4 px-2 rounded-xl truncate">There's no transcript save.</div>
         ) : (
           isSuccess && (
             <>
@@ -65,14 +65,14 @@ const Conversation = () => {
                     type="button"
                     name={`buttonSelected${transcript.chatId}`}
                     aria-label={`buttonSelected${transcript.chatId}`}
-                    className="px-4 py-3 w-full dark:text-white text-black/90 dark:hover:bg-white/10 hover:bg-black/10 mb-3 border border-black/20 dark:border-white/20 hover:drop-shadow-md items-start shadow-sm flex flex-col rounded-xl"
+                    className="px-4 py-3 w-full dark:text-white text-black/90 dark:hover:bg-white/10 hover:bg-black/10 mb-3 border border-black/20 dark:border-white/20 hover:drop-shadow-md items-start shadow-sm group flex flex-col rounded-xl"
                     onClick={() => {
                       navigate(`/transcript/${transcript._id}`);
                     }}
                     key={transcript._id}
                   >
-                    <p className="text-lg font-bold"> {transcript.chatId}</p>
-                    <span className="text-sm text-black/70 dark:text-white/60 tracking-tight">{moment(transcript?.transcript[0]?.createdAt).format("LLL")}</span>
+                    <p className="text-lg group-hover:text-violet-400 transition-colors duration-200 font-bold"> {transcript.chatId}</p>
+                    <span className="text-sm  text-black/70 dark:text-white/60 tracking-tight">{moment(transcript?.transcript[0]?.createdAt).format("LLL")}</span>
                   </button>
                 ))}
             </>
