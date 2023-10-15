@@ -14,8 +14,8 @@ const ReloadChat = () => {
   const { chatId } = useParams();
   const navigate = useNavigate();
   const { transcript, listening } = useSpeechRecognition();
-  const { toogleAsistant, conversationRecording, successRecommendation, setSuccessRecommendation, username } = useContextState();
   const { startRecording, stopRecording, recordingBlob, isRecording } = useAudioRecorder();
+  const { toogleAsistant, conversationRecording, successRecommendation, setSuccessRecommendation, username } = useContextState();
 
   const { mutate: postConversation } = useMutation({
     mutationFn: ({ transcript, chatId }: TContent) => saveConversation({ transcript, chatId }),
@@ -35,7 +35,8 @@ const ReloadChat = () => {
 
   useEffect(() => {
     postConversation({ transcript: conversationRecording, chatId });
-    setSuccessRecommendation(false);
+
+    return () => setSuccessRecommendation(false);
   }, [successRecommendation, conversationRecording, chatId, setSuccessRecommendation]);
 
   return (

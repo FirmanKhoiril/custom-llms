@@ -25,6 +25,7 @@ const Form = () => {
         title: searchTranscript,
         role: "You",
         content: userInput,
+        audioUrl: "",
         contentBot: {
           title: searchTranscript,
           _id: randomId,
@@ -51,9 +52,7 @@ const Form = () => {
     }
   };
 
-  if (isError) {
-    toast.error("Error");
-  }
+  if (isError) toast.error("Error");
 
   const loader = isLoading ? <Loading /> : <HiMiniPaperAirplane size={25} />;
 

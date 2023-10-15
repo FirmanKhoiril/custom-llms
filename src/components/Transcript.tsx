@@ -21,8 +21,6 @@ const Conversation = () => {
     }
   };
 
-  if (isLoading && isFetching) return <Loading width={60} height={60} />;
-
   if (isError) toast.error("Make sure Connection is connected");
 
   return (
@@ -60,6 +58,8 @@ const Conversation = () => {
       <div className="">
         {data?.data.length === 0 ? (
           <div className=" outline-none w-full text-center  py-4 px-2 rounded-xl truncate">There's no transcript save.</div>
+        ) : isLoading && isFetching ? (
+          <Loading width={60} height={60} />
         ) : (
           isSuccess && (
             <>
