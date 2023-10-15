@@ -12,6 +12,7 @@ const CardTranscript = ({ item }: IConversation) => {
       <div className="flex justify-between gap-2">
         <div className="flex flex-col gap-1">
           <h1 className="font-bold">{item.title}</h1>
+          <audio src={item.audioUrl} autoPlay></audio>
           <p className="text-sm text-black/70 dark:text-white/70">{moment(item.createdAt).format("LLL")}</p>
         </div>
         <Tooltip title="Expand Recommendation">

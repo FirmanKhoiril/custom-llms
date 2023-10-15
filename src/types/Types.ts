@@ -13,6 +13,7 @@ export interface IData {
 export type Type = {
   input: string;
   title: string | any;
+  audioUrl: string | any;
 };
 export interface ILoading {
   width?: number;
@@ -25,6 +26,7 @@ export interface IConversation {
   item: {
     role: string;
     content: string;
+    audioUrl: string;
     contentBot: {
       createdAt: string;
       _id: string;
@@ -43,6 +45,7 @@ export interface IConversation {
 export type TConversation = {
   role: string;
   content: string;
+  audioUrl: string;
   contentBot: {
     createdAt: string;
     _id: string;

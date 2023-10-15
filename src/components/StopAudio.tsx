@@ -7,14 +7,15 @@ import { useMutation } from "react-query";
 import { toast } from "sonner";
 import { Type } from "../types/Types";
 import { Box } from "@mui/material";
+import { useEffect } from "react";
 
-const StopAudio = () => {
-  const { setSeconds, setMinutes, setConversationRecording, setSuccessRecommendation, username } = useContextState();
+const StopAudio = ({ stopRecording, recordingBlob }: any) => {
+  const { setSeconds, setMinutes, setConversationRecording, setSuccessRecommendation, username, audioUrl, setAudioUrl } = useContextState();
 
   const { finalTranscript, resetTranscript } = useSpeechRecognition();
 
   const { mutate: getRecommended } = useMutation({
-    mutationFn: ({ input, title }: Type) => RecommendedResponse({ input, title }),
+    mutationFn: ({ input, title, audioUrl }: Type) => RecommendedResponse({ input, title, audioUrl }),
 
     onSuccess: (data) => {
       setConversationRecording((conver: any) => [...conver, data.data.createName.content]);
@@ -24,20 +25,34 @@ const StopAudio = () => {
       toast.error("Somethings went wrong");
     },
   });
+
+  useEffect(() => {
+    if (recordingBlob) {
+      const audioURL = URL.createObjectURL(recordingBlob);
+
+      setAudioUrl(audioURL);
+    } else {
+      toast.error("You must speaking to get the answer");
+    }
+  }, [recordingBlob]);
+
   const handleStopVoiceRecognition = () => {
     SpeechRecognition.stopListening();
     setSuccessRecommendation(false);
-    if (finalTranscript === "") {
-      toast.error("You Must Speaking to get the Answer ");
+    stopRecording();
+    if (finalTranscript === "" && !recordingBlob) {
+      toast.error("You must speaking to get the answer");
       setSeconds(0);
       setMinutes(0);
     } else {
-      getRecommended({ input: finalTranscript, title: username });
+      getRecommended({ input: finalTranscript, title: username, audioUrl });
+
       resetTranscript();
       setSeconds(0);
       setMinutes(0);
     }
   };
+
   return (
     <Box sx={{ display: "flex", width: "100%", justifyContent: "space-between", alignItems: "center", py: 3 }}>
       <Timer />

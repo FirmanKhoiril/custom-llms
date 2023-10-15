@@ -2,12 +2,9 @@ import "regenerator-runtime/runtime";
 import { BsFillMicFill } from "react-icons/bs";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { PiSpeakerSlashBold } from "react-icons/pi";
-import { useContextState } from "../context/ContextProvider";
-import { toast } from "sonner";
 
-const MicAudio = () => {
+const MicAudio = ({ startRecording }: any) => {
   const { listening, browserSupportsSpeechRecognition } = useSpeechRecognition();
-  const { setAudioUrl } = useContextState();
 
   if (!browserSupportsSpeechRecognition) {
     return (
@@ -19,35 +16,8 @@ const MicAudio = () => {
   }
 
   const handleStartVoiceRecognition = () => {
-    let mediaRecorder: any;
-    let chunks: any = [];
-
-    if (navigator.mediaDevices?.getUserMedia) {
-      console.log("mediaDevices supported..");
-      SpeechRecognition.startListening({ continuous: true });
-
-      navigator.mediaDevices
-        .getUserMedia({
-          audio: true,
-        })
-        .then((stream) => {
-          mediaRecorder = new MediaRecorder(stream);
-
-          mediaRecorder.ondataavailable = (e: any) => {
-            chunks.push(e.data);
-          };
-
-          mediaRecorder.onstop = () => {
-            const blob = new Blob(chunks, { type: "audio/webm; codecs=opus" });
-            const audioURL = window.URL.createObjectURL(blob);
-            setAudioUrl(audioURL);
-          };
-        })
-        .catch((error) => {
-          toast.error("Error to push voiceAudioUrl ");
-          throw new Error(error);
-        });
-    }
+    SpeechRecognition.startListening({ continuous: true, language: "en-US" });
+    startRecording();
   };
 
   return (

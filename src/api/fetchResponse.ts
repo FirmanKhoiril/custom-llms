@@ -23,11 +23,12 @@ export const Response = async (input: string) => {
     throw new Error(`${error} Error`);
   }
 };
-export const RecommendedResponse = async ({ input, title }: Type) => {
+export const RecommendedResponse = async ({ input, title, audioUrl }: Type) => {
   try {
     const response: any = await api.post(`/api/question/recomended`, {
       question: input,
       title,
+      audioUrl,
     });
     return response;
   } catch (error) {
