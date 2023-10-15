@@ -27,8 +27,8 @@ const StopAudio = ({ stopRecording, recordingBlob }: any) => {
 
   const handleStopVoiceRecognition = () => {
     SpeechRecognition.stopListening();
-    setSuccessRecommendation(false);
     stopRecording();
+    setSuccessRecommendation(false);
     if (finalTranscript !== "" && recordingBlob) {
       const audioUrl = URL.createObjectURL(recordingBlob);
       getRecommended({ input: finalTranscript, title: username, audioUrl });

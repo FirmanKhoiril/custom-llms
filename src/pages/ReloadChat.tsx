@@ -57,7 +57,7 @@ const ReloadChat = () => {
             {conversationRecording.length !== 0 && (
               <div className="flex flex-col gap-2 relative">
                 {conversationRecording.map((item: TConversation, idx: number) => (
-                  <CardTranscript item={item} key={idx} i={idx} />
+                  <CardTranscript item={item} key={item._id} i={idx} />
                 ))}
               </div>
             )}
@@ -67,7 +67,7 @@ const ReloadChat = () => {
             {conversationRecording.length !== 0 && (
               <div className="flex flex-col gap-2 relative">
                 {conversationRecording.map((item: TConversation, idx: number) => (
-                  <Conversation item={item} key={idx} i={idx} />
+                  <Conversation item={item} key={item._id} i={idx} />
                 ))}
               </div>
             )}
