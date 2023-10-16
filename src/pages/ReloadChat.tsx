@@ -17,7 +17,7 @@ const ReloadChat = () => {
   const { startRecording, stopRecording, recordingBlob, isRecording } = useAudioRecorder();
   const { toogleAsistant, conversationRecording, successRecommendation, setSuccessRecommendation, username } = useContextState();
 
-  const { mutate: postConversation } = useMutation({
+  const { mutate: savesConversation } = useMutation({
     mutationFn: ({ transcript, chatId }: TContent) => saveConversation({ transcript, chatId }),
     onSuccess: () => {
       client.invalidateQueries("getTranscript");
@@ -34,7 +34,7 @@ const ReloadChat = () => {
   }, [chatId, navigate]);
 
   useEffect(() => {
-    postConversation({ transcript: conversationRecording, chatId });
+    savesConversation({ transcript: conversationRecording, chatId });
 
     return () => setSuccessRecommendation(false);
   }, [successRecommendation, conversationRecording, chatId, setSuccessRecommendation]);

@@ -7,28 +7,31 @@ import { useMutation } from "react-query";
 import { toast } from "sonner";
 import { Type } from "../types/Types";
 import { Box } from "@mui/material";
+import { useEffect } from "react";
 
 const StopAudio = ({ stopRecording, recordingBlob }: any) => {
   const { setSeconds, setMinutes, setConversationRecording, setSuccessRecommendation, username } = useContextState();
 
   const { finalTranscript, resetTranscript } = useSpeechRecognition();
 
-  const { mutate: getRecommended } = useMutation({
+  const { mutate: getRecommended, isSuccess } = useMutation({
     mutationFn: ({ input, title, audioUrl }: Type) => RecommendedResponse({ input, title, audioUrl }),
 
     onSuccess: (data) => {
       setConversationRecording((conver: any) => [...conver, data.data.createName.content]);
-      setSuccessRecommendation(true);
     },
     onError: () => {
       toast.error("Somethings went wrong");
     },
   });
 
+  useEffect(() => {
+    setSuccessRecommendation(true);
+  }, [isSuccess]);
+
   const handleStopVoiceRecognition = () => {
     SpeechRecognition.stopListening();
     stopRecording();
-    setSuccessRecommendation(false);
     if (finalTranscript !== "" && recordingBlob) {
       const audioUrl = URL.createObjectURL(recordingBlob);
       getRecommended({ input: finalTranscript, title: username, audioUrl });
