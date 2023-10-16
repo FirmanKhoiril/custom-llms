@@ -38,7 +38,7 @@ const Conversation = () => {
           <div className="flex items-center gap-2">
             <input
               required
-              className="rounded-xl resize-none bg-black/5 dark:bg-white/10 outline-none border border-violet-600/20 placeholder:text-black/60 shadow-sm dark:placeholder:text-white/60 tracking-tight focus:border-violet-600 px-4 py-5 w-full"
+              className="rounded-xl resize-none bg-black/5 dark:bg-white/10 outline-none border border-violet-600/20 placeholder:text-black/60 shadow-sm dark:placeholder:text-white/60 tracking-tight focus:border-violet-600 p-4 w-full"
               type="text"
               value={username}
               placeholder="Your name"
@@ -48,7 +48,7 @@ const Conversation = () => {
               type="submit"
               name="handleSubmit"
               aria-label="handleSubmit"
-              className="py-[22px] min-w-[170px] sm:min-w-[200px] drop-shadow-md bg-secondary font-semibold tracking-tight rounded-xl sm:text-base text-sm hover:bg-hoverSecondary text-white"
+              className="py-[18px] min-w-[170px] sm:min-w-[200px] drop-shadow-md bg-secondary font-semibold tracking-tight rounded-xl sm:text-base text-sm hover:bg-hoverSecondary text-white"
             >
               Start Conversation
             </button>
